@@ -12,6 +12,6 @@ public class User {
     private String email;
     private Address address;
     private String idCardNum;
-    private List<HRequest>;
+    private List<HRequest> requests;
 
 }
