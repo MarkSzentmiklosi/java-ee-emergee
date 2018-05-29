@@ -1,7 +1,6 @@
 package main.java.com.codecool.amf.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
