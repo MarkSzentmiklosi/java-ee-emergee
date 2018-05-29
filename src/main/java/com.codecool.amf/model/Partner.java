@@ -1,4 +1,4 @@
-package main.java.com.codecool.amf.model;
+package com.codecool.amf.model;
 
 public class Partner {
 }
