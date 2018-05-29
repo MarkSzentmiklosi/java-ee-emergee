@@ -8,7 +8,7 @@
         <class>com.codecool.amf.model.HRequest</class>
         <class>com.codecool.amf.model.Partner</class>
         <class>com.codecool.amf.model.User</class>
-        <class>com.codecool.amf.model.HomeAddress</class>
+        <class>com.codecool.amf.model.Address</class>
 
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect"/>
