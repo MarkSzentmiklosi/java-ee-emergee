@@ -1,5 +1,6 @@
 package com.codecool.amf.route_handler;
 
+import com.codecool.amf.auth.AuthenticationManager;
 import com.codecool.amf.config.TemplateEngineUtil;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -28,9 +29,6 @@ public class Login extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-        String hashedPassword = PasswordManager.hashPassword(password);
-
-        RegistrationDaoJdbc registrationDaoJdbc = RegistrationDaoJdbc.getInstance();
-        registrationDaoJdbc.add(email, hashedPassword);
+        String hashedPassword = AuthenticationManager.hashPassword(password);
     }
 }
