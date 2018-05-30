@@ -15,7 +15,6 @@ function getLocation() {
     }
 }
 
-
 function sendPosition(position) {
     const url = `https://reverse.geocoder.cit.api.here.com/6.2/reversegeocode.json?prox=${position.coords.latitude}%2C${position.coords.longitude}%2C250&mode=retrieveAddresses&maxresults=1&gen=8&app_id=Ta4Bs3skhxzoMXfIP4j8&app_code=y0khbGyyfAoVakL5lqjipg`
 
@@ -40,8 +39,5 @@ function sendPosition(position) {
                 street: street
             })
         });
-
-
     })
-
 }
