@@ -21,4 +21,6 @@ public class User {
     private String idCardNum;
     @OneToMany(mappedBy = "user")
     private List<HRequest> requests = new ArrayList<>();
+    @Column(name="hash")
+    private String passwordHash;
 }
