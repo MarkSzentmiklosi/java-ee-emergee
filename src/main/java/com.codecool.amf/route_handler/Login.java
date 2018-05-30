@@ -3,6 +3,8 @@ package com.codecool.amf.route_handler;
 import com.codecool.amf.auth.AuthenticationManager;
 import com.codecool.amf.config.TemplateEngineUtil;
 import com.codecool.amf.jpa.JpaManager;
+import com.codecool.amf.jpa.QueryManager;
+import com.codecool.amf.model.User;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -33,18 +35,24 @@ public class Login extends HttpServlet {
 
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        String hashedPassword = AuthenticationManager.hashPassword(password);
 
-        // TODO: Get hashed password from db with the corresponding email address and compare it with the ones given by user
-        // TODO: Handling exception (redirect to error page)
-        String queryString = "SELECT U FROM User U";
-        EntityManager entityManager = JpaManager.getInstance();
-        javax.persistence.Query query = entityManager.createQuery(queryString);
-        List results = query.getResultList();
+        List<User> users = QueryManager.selectUserByEmail(username);
+        User loginUser;
 
-            HttpSession session = req.getSession();
-            session.setAttribute("userId", 1);
-            //TODO: Get the id of the logged in user and store it in session
-            resp.sendRedirect("/");
+        try {
+            loginUser = users.get(0);
+            if (AuthenticationManager.checkPassword(password, loginUser.getPasswordHash())){
+                User user = new User(loginUser.getPhoneNumber(), loginUser.getName(), loginUser.getEmail(), loginUser.getAddress(), loginUser.getIdCardNum(), loginUser.getRequests());
+                HttpSession session = req.getSession();
+                session.setAttribute("user", user);
+                resp.sendRedirect("/");
+            } else {
+                throw new Exception("Authentication error");
+            }
+        } catch (Exception e) {
+            resp.sendRedirect("/login-error");
+        }
+
+
     }
 }

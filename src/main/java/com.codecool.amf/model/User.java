@@ -23,4 +23,47 @@ public class User {
     private List<HRequest> requests = new ArrayList<>();
     @Column(name="hash")
     private String passwordHash;
+
+    public User(){}
+
+    public User(String phoneNumber, String name, String email, Address address, String idCardNum, List<HRequest> requests) {
+        this.phoneNumber = phoneNumber;
+        this.name = name;
+        this.email = email;
+        this.address = address;
+        this.idCardNum = idCardNum;
+        this.requests = requests;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public String getIdCardNum() {
+        return idCardNum;
+    }
+
+    public List<HRequest> getRequests() {
+        return requests;
+    }
 }

@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Emergee Login</title>
-    <script src="/static/js/validateLogin.js" defer></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
+
+</body>
 <h1>Login page</h1>
+<h2>Wrong username or password</h2>
 <form id="loginForm" th:action="@{/login}" method="post">
     <label for="username">E-mail</label>:
     <input type="text" id="username" name="username" autofocus="autofocus"/> <br/>
@@ -16,5 +16,4 @@
     <input type="password" id="password" name="password"/> <br/>
     <button type="submit"> Login</button>
 </form>
-</body>
 </html>
