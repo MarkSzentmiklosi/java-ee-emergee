@@ -9,6 +9,9 @@
 </head>
 <body>
 <h1>Login page</h1>
+<div th:if="${error}==true">
+    <h3>Wrong user name or password</h3>
+</div>
 <form id="loginForm" th:action="@{/login}" method="post">
     <label for="username">E-mail</label>:
     <input type="text" id="username" name="username" autofocus="autofocus"/> <br/>

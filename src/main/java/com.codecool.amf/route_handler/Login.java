@@ -27,6 +27,7 @@ public class Login extends HttpServlet {
         EntityManager entityManager = JpaManager.getInstance();
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
+        context.setVariable("error", false);
         engine.process("login.html", context, resp.getWriter());
     }
 
@@ -41,7 +42,7 @@ public class Login extends HttpServlet {
 
         try {
             loginUser = users.get(0);
-            if (AuthenticationManager.checkPassword(password, loginUser.getPasswordHash())){
+            if (AuthenticationManager.checkPassword(password, loginUser.getPasswordHash())) {
                 User user = new User(loginUser.getPhoneNumber(), loginUser.getName(), loginUser.getEmail(), loginUser.getAddress(), loginUser.getIdCardNum(), loginUser.getRequests());
                 HttpSession session = req.getSession();
                 session.setAttribute("user", user);
@@ -50,7 +51,10 @@ public class Login extends HttpServlet {
                 throw new Exception("Authentication error");
             }
         } catch (Exception e) {
-            resp.sendRedirect("/login-error");
+            TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+            WebContext context = new WebContext(req, resp, req.getServletContext());
+            context.setVariable("error", true);
+            engine.process("login.html", context, resp.getWriter());
         }
 
 
