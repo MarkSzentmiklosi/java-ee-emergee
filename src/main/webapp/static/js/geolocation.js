@@ -1,13 +1,18 @@
-var $btn = $("#geo_location_btn");
+var $services = $(".servicesHref");
 var street;
 var city;
 var zip;
 var country;
 var houseNum;
 var label;
+var $currentService;
 
+var getService = function () {
+    $currentService = $(this).data("service");
+};
 
-$btn.click(getLocation);
+$services.click(getService);
+$services.click(getLocation);
 
 function getLocation() {
     if (navigator.geolocation) {
@@ -28,9 +33,9 @@ function sendPosition(position) {
 
         $("#loc").text("Are you here? \n" + label);
         $("#myModal").modal("show");
-
         $("#yesBtn").click(function () {
             $.post("/service", {
+                service: $currentService,
                 label: label,
                 country: country,
                 city: city,
