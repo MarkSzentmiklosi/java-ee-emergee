@@ -12,7 +12,6 @@ public class HRequest {
     @Column(name = "creation_date")
     private Timestamp requestCreationDate;
     private boolean active = true;
-    @Column(name = "partner_id")
     @ManyToOne
     private Partner partner;
     @OneToOne
