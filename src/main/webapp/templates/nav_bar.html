@@ -4,10 +4,48 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    <nav th:fragment="bar" class="navbar sticky-top navbar-light bg-light">
-        <a class="navbar-brand float-left glyphicon glyphicon-cog" href="/profile"></a>
-        <div th:text="${session.user.getName()}" class="navbar-brand mb-0 h1"></div>
-        <a class="navbar-brand float-right glyphicon glyphicon-log-out" href="/logout"></a>
-    </nav>
+<nav th:fragment="bar" class="navbar sticky-top navbar-light bg-light">
+    <a href="#" class="navbar-brand float-left glyphicon glyphicon-cog" data-toggle="modal"
+       data-target="#profileModal"></a>
+    <div th:text="${session.user.getName()}" class="navbar-brand mb-0 h1"></div>
+    <a class="navbar-brand float-right glyphicon glyphicon-log-out" href="/logout"></a>
+</nav>
+
+<!--User Profile Modal -->
+
+<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">My Profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <strong>Name</strong>
+                    <a th:text="${session.user.getName()}" href="#" class="list-group-item list-group-item-action"></a>
+                    <br>
+                    <strong>Address</strong>
+                    <a th:text="${session.user.getAddress()}" href="#" class="list-group-item list-group-item-action"></a>
+                    <br>
+                    <strong>E-mail</strong>
+                    <a th:text="${session.user.getEmail()}" href="#" class="list-group-item list-group-item-action"></a>
+                    <br>
+                    <strong>Phone Number</strong>
+                    <a th:text="${session.user.getPhoneNumber()}" href="#" class="list-group-item list-group-item-action"></a>
+                    <br>
+                    <strong>ID Card Number</strong>
+                    <a th:text="${session.user.getIdCardNum()}" href="#" class="list-group-item list-group-item-action"></a>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
