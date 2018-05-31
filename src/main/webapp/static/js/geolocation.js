@@ -27,7 +27,7 @@ function sendPosition(position) {
         label = data['Response']['View'][0]['Result'][0]['Location']['Address']['Label'];
         country = data['Response']['View'][0]['Result'][0]['Location']['Address']['Country'];
         city = data['Response']['View'][0]['Result'][0]['Location']['Address']['City'];
-        zip = data['Response']['View'][0]['Result'][0]['Location']['Address']['postalCode'];
+        zip = data['Response']['View'][0]['Result'][0]['Location']['Address']['PostalCode'];
         street = data['Response']['View'][0]['Result'][0]['Location']['Address']['Street'];
         houseNum = data['Response']['View'][0]['Result'][0]['Location']['Address']['HouseNumber'];
 
