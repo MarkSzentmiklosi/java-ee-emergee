@@ -1,6 +1,6 @@
 package com.codecool.amf.jpa;
 
-import com.codecool.amf.model.PService;
+import com.codecool.amf.PService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;

@@ -1,5 +1,7 @@
 package com.codecool.amf.model;
 
+import com.codecool.amf.PService;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -24,11 +26,10 @@ public class Partner {
     public Partner() {
     }
 
-    public Partner(String name, String email, PService service, List<HRequest> requests) {
+    public Partner(String name, String email, PService service) {
         this.name = name;
         this.email = email;
         this.service = service;
-        this.requests = requests;
     }
 
     public int getId() {

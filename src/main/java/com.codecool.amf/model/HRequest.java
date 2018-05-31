@@ -1,7 +1,7 @@
 package com.codecool.amf.model;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 @Entity
 public class HRequest {
@@ -12,8 +12,11 @@ public class HRequest {
 
     private boolean active = true;
 
-    @Column(name = "creation_date")
-    private Timestamp requestCreationDate;
+    @Transient
+    private String creationDate;
+
+    @Column(name = "time_stamp")
+    private long timestamp;
 
     @ManyToOne
     private Partner partner;
@@ -28,12 +31,18 @@ public class HRequest {
     public HRequest() {
     }
 
-    public HRequest(boolean active, Timestamp requestCreationDate, Partner partner, Location location, User user) {
-        this.active = active;
-        this.requestCreationDate = requestCreationDate;
+    public HRequest(long timestamp, Partner partner, Location location, User user) {
+        this.active = true;
+        this.timestamp = timestamp;
         this.partner = partner;
         this.location = location;
         this.user = user;
+        this.creationDate = convertToDate(timestamp);
+    }
+
+    private String convertToDate(long timestamp) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+        return sdf.format(timestamp);
     }
 
     public int getId() {
@@ -48,12 +57,13 @@ public class HRequest {
         this.active = active;
     }
 
-    public Timestamp getRequestCreationDate() {
-        return requestCreationDate;
+    public String getCreationDate() {
+        convertToDate(timestamp);
+        return creationDate;
     }
 
-    public void setRequestCreationDate(Timestamp requestCreationDate) {
-        this.requestCreationDate = requestCreationDate;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
     public Partner getPartner() {

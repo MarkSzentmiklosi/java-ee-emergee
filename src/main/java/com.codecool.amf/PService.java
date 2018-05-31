@@ -1,4 +1,4 @@
-package com.codecool.amf.model;
+package com.codecool.amf;
 
 public enum PService {
     POLICE,
