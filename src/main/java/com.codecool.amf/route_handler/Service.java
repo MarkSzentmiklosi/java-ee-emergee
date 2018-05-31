@@ -1,5 +1,6 @@
 package com.codecool.amf.route_handler;
 
+import com.codecool.amf.EmailSender;
 import com.codecool.amf.PService;
 import com.codecool.amf.jpa.QueryManager;
 import com.codecool.amf.model.HRequest;
@@ -7,6 +8,7 @@ import com.codecool.amf.model.Location;
 import com.codecool.amf.model.Partner;
 import com.codecool.amf.model.User;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,8 +31,17 @@ public class Service extends HttpServlet {
         Location location = createLocation(requestDetails);
         Partner requestedPartner = getPartner(requestDetails);
         User user = getUser(req);
+        String locationLabel = req.getParameter("label");
 
-        HRequest hRequest = new HRequest(time, requestedPartner, location, user);
+        HRequest hRequest = new HRequest(time, requestedPartner, location, user, locationLabel);
+
+        String msg = EmailSender.createMsg(hRequest);
+
+        try {
+            EmailSender.send(hRequest.getPartner().getEmail(), "request " + hRequest.getCreationDate(), msg);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 
     User getUser(HttpServletRequest request) {
