@@ -28,16 +28,19 @@
                     <a th:text="${session.user.getName()}" href="#" class="list-group-item list-group-item-action"></a>
                     <br>
                     <strong>Address</strong>
-                    <a th:text="${session.user.getAddress()}" href="#" class="list-group-item list-group-item-action"></a>
+                    <a th:text="${session.user.getAddress().toString()}" href="#"
+                       class="list-group-item list-group-item-action"></a>
                     <br>
                     <strong>E-mail</strong>
                     <a th:text="${session.user.getEmail()}" href="#" class="list-group-item list-group-item-action"></a>
                     <br>
                     <strong>Phone Number</strong>
-                    <a th:text="${session.user.getPhoneNumber()}" href="#" class="list-group-item list-group-item-action"></a>
+                    <a th:text="${session.user.getPhoneNumber()}" href="#"
+                       class="list-group-item list-group-item-action"></a>
                     <br>
                     <strong>ID Card Number</strong>
-                    <a th:text="${session.user.getIdCardNum()}" href="#" class="list-group-item list-group-item-action"></a>
+                    <a th:text="${session.user.getIdCardNum()}" href="#"
+                       class="list-group-item list-group-item-action"></a>
                 </ul>
             </div>
             <div class="modal-footer">
