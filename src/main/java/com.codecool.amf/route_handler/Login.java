@@ -25,12 +25,13 @@ public class Login extends HttpServlet {
         HttpSession session = req.getSession();
         if (session.getAttribute("user") != null) {
             resp.sendRedirect("/");
-        }
+        } else {
 
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("error", false);
-        engine.process("login.html", context, resp.getWriter());
+            TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+            WebContext context = new WebContext(req, resp, req.getServletContext());
+            context.setVariable("error", false);
+            engine.process("login.html", context, resp.getWriter());
+        }
     }
 
     @Override

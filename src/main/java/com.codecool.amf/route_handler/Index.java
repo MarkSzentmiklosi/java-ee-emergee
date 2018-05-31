@@ -20,9 +20,10 @@ public class Index extends HttpServlet {
         HttpSession session = req.getSession();
         if (session.getAttribute("user") == null) {
             resp.sendRedirect("/login");
+        } else {
+            TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+            WebContext context = new WebContext(req, resp, req.getServletContext());
+            engine.process("index.html", context, resp.getWriter());
         }
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        WebContext context = new WebContext(req, resp, req.getServletContext());
-        engine.process("index.html", context, resp.getWriter());
     }
 }
