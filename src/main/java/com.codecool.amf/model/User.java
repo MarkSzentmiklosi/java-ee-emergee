@@ -29,7 +29,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<HRequest> requests = new ArrayList<>();
 
-    @Column(name="hash")
+    @Column(name = "password")
     private String passwordHash;
 
 
@@ -43,6 +43,11 @@ public class User {
         this.idCardNum = idCardNum;
         this.address = address;
         this.requests = requests;
+    }
+
+    public User(String name, String email, String phoneNumber, String idCardNum, Address address, List<HRequest> requests, String passwordHash) {
+        this(name, email, phoneNumber, idCardNum, address, requests);
+        this.passwordHash = passwordHash;
     }
 
     public int getId() {
@@ -95,5 +100,9 @@ public class User {
 
     public void setRequests(List<HRequest> requests) {
         this.requests = requests;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
     }
 }
