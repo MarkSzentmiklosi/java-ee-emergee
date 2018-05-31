@@ -1,9 +1,5 @@
 package com.codecool.amf.route_handler;
 
-import com.codecool.amf.config.TemplateEngineUtil;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.WebContext;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
