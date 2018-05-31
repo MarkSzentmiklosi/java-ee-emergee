@@ -29,6 +29,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<HRequest> requests = new ArrayList<>();
 
+    @Column(name="hash")
+    private String passwordHash;
+
 
     public User() {
     }
