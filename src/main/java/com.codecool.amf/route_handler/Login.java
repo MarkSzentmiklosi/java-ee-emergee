@@ -2,13 +2,11 @@ package com.codecool.amf.route_handler;
 
 import com.codecool.amf.auth.AuthenticationManager;
 import com.codecool.amf.config.TemplateEngineUtil;
-import com.codecool.amf.jpa.JpaManager;
 import com.codecool.amf.jpa.QueryManager;
 import com.codecool.amf.model.User;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
-import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +22,6 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        EntityManager entityManager = JpaManager.getInstance();
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("error", false);
@@ -43,7 +40,7 @@ public class Login extends HttpServlet {
         try {
             loginUser = users.get(0);
             if (AuthenticationManager.checkPassword(password, loginUser.getPasswordHash())) {
-                User user = new User(loginUser.getPhoneNumber(), loginUser.getName(), loginUser.getEmail(), loginUser.getAddress(), loginUser.getIdCardNum(), loginUser.getRequests());
+                User user = new User(loginUser.getName(), loginUser.getEmail(), loginUser.getPhoneNumber(), loginUser.getIdCardNum(), loginUser.getAddress(), loginUser.getRequests());
                 HttpSession session = req.getSession();
                 session.setAttribute("user", user);
                 resp.sendRedirect("/");
@@ -56,7 +53,6 @@ public class Login extends HttpServlet {
             context.setVariable("error", true);
             engine.process("login.html", context, resp.getWriter());
         }
-
 
     }
 }
