@@ -27,11 +27,15 @@ public class HRequest {
     @ManyToOne
     private User user;
 
+    @Transient
+    private String locationLabel;
+
 
     public HRequest() {
     }
 
-    public HRequest(long timestamp, Partner partner, Location location, User user) {
+    public HRequest(long timestamp, Partner partner, Location location, User user, String locationLabel) {
+        this.locationLabel = locationLabel;
         this.active = true;
         this.timestamp = timestamp;
         this.partner = partner;
@@ -41,7 +45,7 @@ public class HRequest {
     }
 
     private String convertToDate(long timestamp) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd. HH:mm");
         return sdf.format(timestamp);
     }
 
@@ -88,6 +92,10 @@ public class HRequest {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getLocationLabel() {
+        return locationLabel;
     }
 }
 
