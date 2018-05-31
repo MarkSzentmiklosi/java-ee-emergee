@@ -4,5 +4,4 @@ $("#loginForm").submit(function () {
     $inputs.each(function () {
         values[this.name] = $(this).val();
     })
-    debugger;
 });

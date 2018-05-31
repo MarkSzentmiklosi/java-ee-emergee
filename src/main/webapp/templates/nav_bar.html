@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
 </head>
 <body>
-<div th:fragment="bar">
-    <a href="">Profile</a>
-    <div>Username</div>
-    <a href="">Logout</a>
-</div>
+    <nav th:fragment="bar" class="navbar sticky-top navbar-light bg-light">
+        <a class="navbar-brand float-left glyphicon glyphicon-cog" href="/profile"></a>
+        <div th:text="${session.user.getName()}" class="navbar-brand mb-0 h1"></div>
+        <a class="navbar-brand float-right glyphicon glyphicon-log-out" href="/logout"></a>
+    </nav>
 </body>
 </html>
