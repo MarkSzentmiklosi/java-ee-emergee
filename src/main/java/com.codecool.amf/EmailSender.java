@@ -1,9 +1,12 @@
 package com.codecool.amf;
 
 import com.codecool.amf.model.HRequest;
-import org.apache.commons.text.StrSubstitutor;
+import org.apache.logging.log4j.core.lookup.StrSubstitutor;
 
-import javax.mail.*;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
