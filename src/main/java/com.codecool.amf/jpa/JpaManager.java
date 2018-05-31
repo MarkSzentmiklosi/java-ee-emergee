@@ -19,4 +19,15 @@ public class JpaManager {
         return entityManager;
     }
 
+    public static void main(String[] args) {
+        generateDB();
+    }
+
+    private static void generateDB() {
+        EntityManager em = emf.createEntityManager();
+        System.out.println("[INFO]: Gerenating DB ... Done");
+        em.close();
+        emf.close();
+    }
+
 }

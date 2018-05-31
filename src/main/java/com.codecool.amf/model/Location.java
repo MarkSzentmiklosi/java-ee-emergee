@@ -1,16 +1,13 @@
 package com.codecool.amf.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "home_addresses")
-public class Address {
+public class Location {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     private String country;
 
@@ -24,14 +21,14 @@ public class Address {
     @Column(name = "house_number")
     private String houseNum;
 
-    @OneToMany(mappedBy = "address")
-    private List<User> users = new ArrayList<User>();
+    @OneToOne(mappedBy = "location")
+    private HRequest request;
 
 
-    public Address() {
+    public Location() {
     }
 
-    public Address(String country, String city, String zipCode, String street, String houseNum) {
+    public Location(String country, String city, String zipCode, String street, String houseNum) {
         this.country = country;
         this.city = city;
         this.zipCode = zipCode;
@@ -39,7 +36,12 @@ public class Address {
         this.houseNum = houseNum;
     }
 
-    public long getId() {
+    public Location(String country, String city, String zipCode, String street, String houseNum, HRequest request) {
+        this(country, city, zipCode, street, houseNum);
+        this.request = request;
+    }
+
+    public int getId() {
         return id;
     }
 
@@ -81,5 +83,13 @@ public class Address {
 
     public void setHouseNum(String houseNum) {
         this.houseNum = houseNum;
+    }
+
+    public HRequest getRequest() {
+        return request;
+    }
+
+    public void setRequest(HRequest request) {
+        this.request = request;
     }
 }
