@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.text.SimpleDateFormat;
 
 @Entity
+@Table(name = "help_request")
 public class HRequest {
 
     @Id
@@ -18,13 +19,13 @@ public class HRequest {
     @Column(name = "time_stamp")
     private long timestamp;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.MERGE)
     private Partner partner;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.PERSIST)
     private Location location;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.MERGE)
     private User user;
 
     @Transient
@@ -57,45 +58,44 @@ public class HRequest {
         return active;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
     public String getCreationDate() {
-        convertToDate(timestamp);
         return creationDate;
-    }
-
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
     }
 
     public Partner getPartner() {
         return partner;
     }
 
-    public void setPartner(Partner partner) {
-        this.partner = partner;
-    }
-
     public Location getLocation() {
         return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
     }
 
     public User getUser() {
         return user;
     }
 
+    public String getLocationLabel() {
+        return locationLabel;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public void setPartner(Partner partner) {
+        this.partner = partner;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
     public void setUser(User user) {
         this.user = user;
     }
 
-    public String getLocationLabel() {
-        return locationLabel;
+    public void setLocationLabel(String locationLabel) {
+        this.locationLabel = locationLabel;
     }
 }
 

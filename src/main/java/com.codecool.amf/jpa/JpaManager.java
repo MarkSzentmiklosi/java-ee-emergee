@@ -1,11 +1,6 @@
 package com.codecool.amf.jpa;
 
-import com.codecool.amf.PService;
-import com.codecool.amf.auth.AuthenticationManager;
-import com.codecool.amf.model.Address;
-import com.codecool.amf.model.Partner;
-import com.codecool.amf.model.User;
-
+import com.codecool.amf.model.HRequest;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -77,9 +72,21 @@ public class JpaManager {
         emf.close();
     }
 
-    private static void generateDB() {
+    public static void persist(HRequest hRequest) {
         EntityManager em = emf.createEntityManager();
-        System.out.println("[INFO]: Gerenating DB ... Done");
-    }
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
 
+        try {
+
+            em.persist(hRequest);
+            transaction.commit();
+            em.clear();
+            em.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.printf("[WARNING]: Cannot persist help request");
+        }
+    }
 }
