@@ -15,7 +15,7 @@ import java.util.Properties;
 
 public class EmailSender {
 
-    public static void send(String to, String sub, String msg) throws javax.mail.MessagingException {
+    public static void send(String to, String sub, String msg, String service) throws javax.mail.MessagingException {
         //Get properties object
         String from = "amf.emergee@gmail.com";
         String password = "amfemergee123";
@@ -39,16 +39,16 @@ public class EmailSender {
         message.setText(msg);
         //send message
         Transport.send(message);
-        System.out.println("message sent successfully");
+        System.out.println("[INFO]: Email sent successfully to " + to + " for this service type " + service);
 
     }
 
     public static String createMsg(HRequest hRequest) {
         String template = "Dear ${partnerName},\n" +
                 "\n" +
-                "We have a new request for you.\n" +
-                "Our client ${clientName} need your help at ${location}\n" +
-                "Please get in touch with the client on this number ${clientPhone}.\n" +
+                "We have a new request for you.\n\n" +
+                "Our client ${clientName} need your help at:\n${location}.\n\n" +
+                "Please get in touch with the client on this number:\n${clientPhone}.\n" +
                 "\n" +
                 "Best regard,\n" +
                 "AMF Team";

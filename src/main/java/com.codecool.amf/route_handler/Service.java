@@ -2,6 +2,7 @@ package com.codecool.amf.route_handler;
 
 import com.codecool.amf.EmailSender;
 import com.codecool.amf.PService;
+import com.codecool.amf.jpa.JpaManager;
 import com.codecool.amf.jpa.QueryManager;
 import com.codecool.amf.model.HRequest;
 import com.codecool.amf.model.Location;
@@ -34,18 +35,31 @@ public class Service extends HttpServlet {
         String locationLabel = req.getParameter("label");
 
         HRequest hRequest = new HRequest(time, requestedPartner, location, user, locationLabel);
+        JpaManager.persist(hRequest);
+        sendEmailForPartner(requestDetails, hRequest);
+    }
 
+    private void sendEmailForPartner(HashMap<String, String> requestDetails, HRequest hRequest) {
         String msg = EmailSender.createMsg(hRequest);
 
         try {
-            EmailSender.send(hRequest.getPartner().getEmail(), "request " + hRequest.getCreationDate(), msg);
+            String subject = "Request " + hRequest.getCreationDate();
+            String partnerEmail = hRequest.getPartner().getEmail();
+            String serviceType = requestDetails.get("service");
+
+            EmailSender.send(partnerEmail, subject, msg, serviceType);
+
         } catch (MessagingException e) {
             e.printStackTrace();
         }
     }
 
     User getUser(HttpServletRequest request) {
-        return (User) request.getSession().getAttribute("user");
+        User userDetails = (User) request.getSession().getAttribute("user");
+        String userEmail= userDetails.getEmail();
+        List users = QueryManager.selectUserByEmail(userEmail);
+        User user = (User) users.get(0);
+        return user;
     }
 
     Partner getPartner(HashMap<String, String> requestDetails) {
