@@ -46,7 +46,7 @@ public class Login extends HttpServlet {
         try {
             loginUser = users.get(0);
             if (AuthenticationManager.checkPassword(password, loginUser.getPasswordHash())) {
-                User user = new User(loginUser.getName(), loginUser.getEmail(), loginUser.getPhoneNumber(), loginUser.getIdCardNum(), loginUser.getAddress(), loginUser.getRequests());
+                User user = new User(loginUser.getName(), loginUser.getEmail(), loginUser.getPhoneNumber(), loginUser.getIdCardNum(), loginUser.getAddress());
                 HttpSession session = req.getSession();
                 session.setAttribute("user", user);
                 resp.sendRedirect("/");

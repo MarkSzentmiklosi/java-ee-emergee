@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "home_addresses")
+@Table(name = "home_address")
 public class Address {
 
     @Id
@@ -25,7 +25,7 @@ public class Address {
     private String houseNum;
 
     @OneToMany(mappedBy = "address")
-    private List<User> users = new ArrayList<User>();
+    private List<User> users = new ArrayList<>();
 
 
     public Address() {
@@ -37,6 +37,10 @@ public class Address {
         this.zipCode = zipCode;
         this.street = street;
         this.houseNum = houseNum;
+    }
+
+    public void addUser(User user) {
+        users.add(user);
     }
 
     public long getId() {
@@ -83,8 +87,12 @@ public class Address {
         this.houseNum = houseNum;
     }
 
+    public List<User> getUsers() {
+        return users;
+    }
+
     @Override
     public String toString() {
-        return this.getHouseNum() + " " + this.getStreet() + " " + this.getCity() + ", " + this.getCountry() + " " + this.getZipCode();
+        return this.country + " " + this.zipCode + " " + this.city + " " + this.street + " "  + this.houseNum;
     }
 }

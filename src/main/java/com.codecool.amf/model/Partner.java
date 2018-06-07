@@ -3,9 +3,11 @@ package com.codecool.amf.model;
 import com.codecool.amf.PService;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "partners")
 public class Partner {
 
     @Id
@@ -20,7 +22,7 @@ public class Partner {
     private PService service;
 
     @OneToMany(mappedBy = "partner")
-    private List<HRequest> requests;
+    private List<HRequest> requests = new ArrayList<>();
 
 
     public Partner() {
@@ -32,6 +34,10 @@ public class Partner {
         this.service = service;
     }
 
+    public void addRequest(HRequest request) {
+        requests.add(request);
+    }
+
     public int getId() {
         return id;
     }
@@ -40,31 +46,27 @@ public class Partner {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public PService getService() {
         return service;
     }
 
-    public void setService(PService service) {
-        this.service = service;
-    }
-
     public List<HRequest> getRequests() {
         return requests;
     }
 
-    public void setRequests(List<HRequest> requests) {
-        this.requests = requests;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setService(PService service) {
+        this.service = service;
     }
 }

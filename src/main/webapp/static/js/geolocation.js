@@ -31,7 +31,7 @@ function sendPosition(position) {
         street = data['Response']['View'][0]['Result'][0]['Location']['Address']['Street'];
         houseNum = data['Response']['View'][0]['Result'][0]['Location']['Address']['HouseNumber'];
 
-        $("#loc").text("Are you here? \n" + label);
+        $("#loc").text("Are you here: " + label + "?");
         $("#myModal").modal("show");
         $("#yesBtn").click(function () {
             $.post("/service", {
