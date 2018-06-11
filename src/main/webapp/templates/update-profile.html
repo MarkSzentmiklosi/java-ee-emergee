@@ -26,11 +26,22 @@
 <div class="modal-body">
     <ul class="list-group">
         <strong>Name</strong>
-        <a th:text="${session.userName}" href="#" class="list-group-item list-group-item-action"></a>
+        <input type="text" id="name" name="name" autofocus="autofocus" required th:value="${session.userName}"/>
         <br>
-        <strong>Address</strong>
-        <input type="text" id="address" name="address" autofocus="autofocus" required/>
-
+        <strong>Country</strong>
+        <input type="text" id="country" name="country" autofocus="autofocus" required/>
+        <br>
+        <strong>City</strong>
+        <input type="text" id="city" name="city" autofocus="autofocus" required/>
+        <br>
+        <strong>Zip Code</strong>
+        <input type="text" id="zipCode" name="zipCode" autofocus="autofocus" required/>
+        <br>
+        <strong>Street</strong>
+        <input type="text" id="street" name="street" autofocus="autofocus" required/>
+        <br>
+        <strong>House Number</strong>
+        <input type="text" id="houseNum" name="houseNum" autofocus="autofocus" required/>
         <br>
         <strong>E-mail</strong>
         <a th:text="${session.email}" href="#" class="list-group-item list-group-item-action"></a>
