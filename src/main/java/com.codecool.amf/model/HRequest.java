@@ -19,13 +19,13 @@ public class HRequest {
     @Column(name = "time_stamp")
     private long timestamp;
 
-    @ManyToOne(cascade=CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Partner partner;
 
-    @OneToOne(cascade=CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Location location;
 
-    @ManyToOne(cascade=CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private User user;
 
     @Transient

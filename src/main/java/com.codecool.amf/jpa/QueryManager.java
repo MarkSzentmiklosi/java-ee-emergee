@@ -18,8 +18,6 @@ public class QueryManager {
 
         List result = query.getResultList();
 
-        entityManager.close();
-
         return result;
     }
 
@@ -32,8 +30,6 @@ public class QueryManager {
         query.setParameter("service", service);
 
         List result = query.getResultList();
-
-        entityManager.close();
 
         return result;
     }

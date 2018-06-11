@@ -3,15 +3,10 @@ package com.codecool.amf.route_handler;
 import com.codecool.amf.EmailSender;
 import com.codecool.amf.jpa.PersistenceManager;
 import com.codecool.amf.jpa.QueryManager;
-import com.codecool.amf.model.HRequest;
-import com.codecool.amf.model.Location;
-import com.codecool.amf.model.Partner;
-import com.codecool.amf.model.PService;
-import com.codecool.amf.model.User;
+import com.codecool.amf.model.*;
 import org.json.JSONObject;
 
 import javax.mail.MessagingException;
-import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,9 +35,7 @@ public class Service extends HttpServlet {
 
         HRequest hRequest = new HRequest(time, requestedPartner, location, user, locationLabel);
 
-        EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
-        em.persist(hRequest);
-        em.close();
+        PersistenceManager.INSTANCE.persistEntity(hRequest);
 
         sendEmailForPartner(service.getString("service"), hRequest);
     }
@@ -50,9 +43,7 @@ public class Service extends HttpServlet {
     private JSONObject getJsonObjectFromRequest(HttpServletRequest req) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
         String json = "";
-        if (br != null) {
-            json = br.readLine();
-        }
+        json = br.readLine();
         return new JSONObject(json.toString());
     }
 
