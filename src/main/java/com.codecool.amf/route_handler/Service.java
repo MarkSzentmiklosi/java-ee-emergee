@@ -1,10 +1,17 @@
 package com.codecool.amf.route_handler;
 
+import com.codecool.amf.EmailSender;
+import com.codecool.amf.jpa.PersistenceManager;
 import com.codecool.amf.jpa.QueryManager;
-import com.codecool.amf.model.*;
+import com.codecool.amf.model.HRequest;
+import com.codecool.amf.model.Location;
+import com.codecool.amf.model.Partner;
+import com.codecool.amf.model.PService;
+import com.codecool.amf.model.User;
 import org.json.JSONObject;
 
 import javax.mail.MessagingException;
+import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,14 +39,18 @@ public class Service extends HttpServlet {
         String locationLabel = address.getString("label");
 
         HRequest hRequest = new HRequest(time, requestedPartner, location, user, locationLabel);
-        JpaManager.persist(hRequest);
+
+        EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
+        em.persist(hRequest);
+        em.close();
+
         sendEmailForPartner(service.getString("service"), hRequest);
     }
 
     private JSONObject getJsonObjectFromRequest(HttpServletRequest req) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
         String json = "";
-        if(br != null){
+        if (br != null) {
             json = br.readLine();
         }
         return new JSONObject(json.toString());
@@ -60,22 +71,22 @@ public class Service extends HttpServlet {
         }
     }
 
-    User getUser(HttpServletRequest request) {
+    private User getUser(HttpServletRequest request) {
         User userDetails = (User) request.getSession().getAttribute("user");
-        String userEmail= userDetails.getEmail();
+        String userEmail = userDetails.getEmail();
         List users = QueryManager.selectUserByEmail(userEmail);
         User user = (User) users.get(0);
         return user;
     }
 
-    Partner getPartner(JSONObject serviceJSON) {
+    private Partner getPartner(JSONObject serviceJSON) {
         PService service = getPService(serviceJSON.getString("service"));
         List<Partner> partnerList = QueryManager.selectPartnerByService(service);
 
         return partnerList.get(0);
     }
 
-    PService getPService(String typeOfService) {
+    private PService getPService(String typeOfService) {
         PService service = null;
 
         switch (typeOfService) {
@@ -95,7 +106,7 @@ public class Service extends HttpServlet {
         return service;
     }
 
-    protected Location createLocation(JSONObject address) {
+    private Location createLocation(JSONObject address) {
         Location location = new Location(
                 address.getString("country"),
                 address.getString("locality"),
