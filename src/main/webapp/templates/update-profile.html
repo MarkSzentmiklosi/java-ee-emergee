@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+    <meta name="google-signin-client_id" content="937806585060-f0cgf0ipskqbj73qktojang6oblu8n2e.apps.googleusercontent.com">
+    <script src="/static/js/logout.js" rel="script" defer></script>
+    <meta charset="UTF-8">
+    <title>Update your profile</title>
+</head>
+<body>
+<h2 th:text=" 'Welcome ' + ${session.userName} + '!'"></h2>
+<p>Please update your profile</p>
+<a href="/logout" onclick="signOut();">Sign out</a>
+</body>
+</html>

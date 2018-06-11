@@ -5,6 +5,10 @@
     <title>Emergee Login</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
     <script rel="script" src="/static/js/loginValidate.js" defer></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="/static/js/googleLogin.js" rel="script" defer></script>
+    <meta name="google-signin-client_id" content="937806585060-f0cgf0ipskqbj73qktojang6oblu8n2e.apps.googleusercontent.com">
+
 </head>
 
 <body>
@@ -20,7 +24,8 @@
         <label for="password">Password:</label><br>
         <input type="password" id="password" name="password" required/><br/>
     </p>
-    <button id="submitLogin" type="submit"> Login</button>
+    <button id="submitLogin" type="submit">Login</button>
 </form>
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
 </body>
 </html>
