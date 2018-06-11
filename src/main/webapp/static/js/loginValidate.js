@@ -3,20 +3,21 @@ function checkLoginData(email, password) {
     userData["email"] = email;
     userData["password"] = password;
 
+    let isValid = false;
+
     $.ajax({
         url: "/check_login_details",
         type: "POST",
         data: userData,
+        async: false,
         success: function (data) {
             if (data === "valid") {
-                return true;
-            } else {
-                alert("Cannot login!")
+                isValid = true;
             }
         }
     });
 
-    return false;
+    return isValid;
 }
 
 function chechLoginForm() {
@@ -25,15 +26,21 @@ function chechLoginForm() {
 
     let isLoginValid = checkLoginData(email, password);
 
-    $("#loginForm").submit(function () {
-        return isLoginValid;
-    })
+    return isLoginValid;
+}
+
+function handleInvalidLogin() {
+    alert("Cannot login.")
 }
 
 function setEventHandlers() {
     $(document).ready(function () {
             $("#submitLogin").on("click", function () {
-                chechLoginForm();
+                if (chechLoginForm()) {
+                    $("#loginForm").submit()
+                } else {
+                    handleInvalidLogin();
+                }
             })
         }
     );

@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -20,9 +21,7 @@ public class checkUserLogin extends HttpServlet {
         String inputEmail = req.getParameter("email");
         String inputPassword = req.getParameter("password");
 
-        String hashedInputPassword = AuthenticationManager.hashPassword(inputPassword);
-
-        String response = null;
+        String response = "invalid";
 
         List users = QueryManager.selectUserByEmail(inputEmail);
 
@@ -30,16 +29,18 @@ public class checkUserLogin extends HttpServlet {
             User user = (User) users.get(0);
             String userPassword = user.getPasswordHash();
 
-            if (userPassword.equals(hashedInputPassword)) {
+            if (isPasswordMatch(inputPassword, userPassword)) {
+                HttpSession session = req.getSession();
+                session.setAttribute("user", user);
                 response = "valid";
-            } else {
-                response = "invalid";
             }
-
-        } else {
-            response = "invalid";
         }
 
         resp.getWriter().write(response);
+
+    }
+
+    private boolean isPasswordMatch(String inputPassword, String userPassword) {
+        return AuthenticationManager.checkPassword(inputPassword, userPassword);
     }
 }
