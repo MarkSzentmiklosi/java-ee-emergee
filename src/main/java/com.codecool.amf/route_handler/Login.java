@@ -24,7 +24,6 @@ public class Login extends HttpServlet {
         if (session.getAttribute("user") != null) {
             resp.sendRedirect("/");
         } else {
-
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
             WebContext context = new WebContext(req, resp, req.getServletContext());
             context.setVariable("error", false);
@@ -34,14 +33,6 @@ public class Login extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        String email = req.getParameter("email");
-
-        User user = (User) QueryManager.selectUserByEmail(email).get(0);
-
-        HttpSession session = req.getSession();
-        session.setAttribute("user", user);
-
         resp.sendRedirect("/");
     }
 }
