@@ -1,6 +1,12 @@
 package com.codecool.amf.jpa;
 
+import com.codecool.amf.PService;
+import com.codecool.amf.auth.AuthenticationManager;
+import com.codecool.amf.model.Address;
 import com.codecool.amf.model.HRequest;
+import com.codecool.amf.model.Partner;
+import com.codecool.amf.model.User;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -24,6 +30,11 @@ public class JpaManager {
     public static void main(String[] args) {
         generateDB();
         populateDB();
+    }
+
+    private static void generateDB() {
+        EntityManager em = emf.createEntityManager();
+        System.out.println("[INFO]: Gerenating DB ... Done");
     }
 
     private static void populateDB() {
