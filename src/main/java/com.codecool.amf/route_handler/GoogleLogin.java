@@ -60,7 +60,7 @@ public class GoogleLogin extends HttpServlet {
             String email = payLoad.getEmail();
             List<User> users = QueryManager.selectUserByEmail(email);
             User loginUser = users.get(0);
-            User user = new User(loginUser.getName(), loginUser.getEmail(), loginUser.getPhoneNumber(), loginUser.getIdCardNum(), loginUser.getAddress());
+            User user = new User(loginUser.getName(), loginUser.getEmail(), loginUser.getPhoneNumber(), loginUser.getIdCardNum(), loginUser.getAddress(), loginUser.getRequests());
             HttpSession session = req.getSession();
             session.setAttribute("user", user);
 

@@ -6,13 +6,6 @@
     <script src="/static/js/validateLogin.js" defer></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script src="/static/js/googleLogin.js" defer></script>
-
-    <meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id"
-          content="937806585060-f0cgf0ipskqbj73qktojang6oblu8n2e.apps.googleusercontent.com">
-
 </head>
 <body>
 <h1>Login page</h1>
@@ -20,13 +13,16 @@
     <h3>Wrong user name or password</h3>
 </div>
 <form id="loginForm" th:action="@{/login}" method="post">
-    <label for="username">E-mail</label>:
-    <input type="text" id="username" name="username" autofocus="autofocus"/> <br/>
-    <label for="password">Password</label>:
-    <input type="password" id="password" name="password"/> <br/>
+    <p>
+        <label for="username">E-mail:</label><br>
+        <input type="text" id="username" name="username" autofocus="autofocus"/>
+    </p>
+
+    <p>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"/> <br/>
+    </p>
     <button type="submit"> Login</button>
 </form>
-<div class="g-signin2" data-onsuccess="onSignIn"></div>
-
 </body>
 </html>
