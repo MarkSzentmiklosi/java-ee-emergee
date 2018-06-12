@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-public class emailSender {
+public class EmailSender {
 
     public void send(String to, String sub, String msg, String service) throws javax.mail.MessagingException {
         //Get properties object
