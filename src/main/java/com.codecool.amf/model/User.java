@@ -23,7 +23,7 @@ public class User {
     @Column(unique = true, name = "id_card")
     private String idCardNum;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Address address;
 
     @OneToMany(mappedBy = "user")

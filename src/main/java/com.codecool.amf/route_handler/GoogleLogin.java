@@ -8,7 +8,6 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,9 +15,14 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/glogin"})
 public class GoogleLogin extends HttpServlet {
 
+    private final QueryManager queryManager;
+
+
+    public GoogleLogin(QueryManager queryManager) {
+        this.queryManager = queryManager;
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -58,7 +62,7 @@ public class GoogleLogin extends HttpServlet {
         try {
 
             String email = payLoad.getEmail();
-            List<User> users = QueryManager.selectUserByEmail(email);
+            List<User> users = queryManager.selectUserByEmail(email);
             User loginUser = users.get(0);
             User user = new User(loginUser.getName(), loginUser.getEmail(), loginUser.getPhoneNumber(), loginUser.getIdCardNum(), loginUser.getAddress());
             HttpSession session = req.getSession();
