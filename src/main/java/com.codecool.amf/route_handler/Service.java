@@ -31,7 +31,7 @@ public class Service extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         JSONObject requestJSON = getJsonObjectFromRequest(req);
-        JSONObject service = (JSONObject) requestJSON.get("servicec");
+        JSONObject service = (JSONObject) requestJSON.get("service_type");
         JSONObject address = (JSONObject) requestJSON.get("address");
 
         long time = getTime();
