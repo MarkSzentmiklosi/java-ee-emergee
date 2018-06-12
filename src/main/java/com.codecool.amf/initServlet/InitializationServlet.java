@@ -1,10 +1,16 @@
 package com.codecool.amf.initServlet;
 
+import com.codecool.amf.EmailSender;
 import com.codecool.amf.authenticator.AuthenticationManager;
-import com.codecool.amf.emailSender;
 import com.codecool.amf.jpa.PersistenceManager;
 import com.codecool.amf.jpa.QueryManager;
-import com.codecool.amf.route_handler.*;
+import com.codecool.amf.route_handler.CheckUserLogin;
+import com.codecool.amf.route_handler.GoogleLogin;
+import com.codecool.amf.route_handler.Index;
+import com.codecool.amf.route_handler.Login;
+import com.codecool.amf.route_handler.Logout;
+import com.codecool.amf.route_handler.Service;
+import com.codecool.amf.route_handler.UpdateProfile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,7 +25,7 @@ public class InitializationServlet extends HttpServlet {
         PersistenceManager persistenceManager = createPersistanceManager();
         AuthenticationManager authenticationManager = new AuthenticationManager();
 
-        emailSender emailSender = new emailSender();
+        EmailSender emailSender = new EmailSender();
         QueryManager queryManager = new QueryManager(persistenceManager);
 
         Service service = new Service(emailSender, persistenceManager, queryManager);

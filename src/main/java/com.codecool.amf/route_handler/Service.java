@@ -1,8 +1,13 @@
 package com.codecool.amf.route_handler;
 
+import com.codecool.amf.EmailSender;
 import com.codecool.amf.jpa.PersistenceManager;
 import com.codecool.amf.jpa.QueryManager;
-import com.codecool.amf.model.*;
+import com.codecool.amf.model.HRequest;
+import com.codecool.amf.model.Location;
+import com.codecool.amf.model.PService;
+import com.codecool.amf.model.Partner;
+import com.codecool.amf.model.User;
 import org.json.JSONObject;
 
 import javax.mail.MessagingException;
@@ -18,11 +23,11 @@ import java.util.List;
 
 public class Service extends HttpServlet {
 
-    private final com.codecool.amf.emailSender emailSender;
+    private final EmailSender emailSender;
     private final PersistenceManager persistenceManager;
     private final QueryManager queryManager;
 
-    public Service(com.codecool.amf.emailSender emailSender, PersistenceManager persistenceManager, QueryManager queryManager) {
+    public Service(EmailSender emailSender, PersistenceManager persistenceManager, QueryManager queryManager) {
         this.emailSender = emailSender;
         this.persistenceManager = persistenceManager;
         this.queryManager = queryManager;
