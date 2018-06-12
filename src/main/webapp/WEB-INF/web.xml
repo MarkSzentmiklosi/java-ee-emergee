@@ -6,8 +6,31 @@
          version="3.1">
 
     <display-name>Emergee</display-name>
+
+    <servlet>
+        <servlet-name>Initialization</servlet-name>
+        <servlet-class>com.codecool.amf.initServlet.InitializationServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <servlet-name>Service</servlet-name>
+        <servlet-class>com.codecool.amf.initServlet.DelegateHttpServlet</servlet-class>
+
+        <init-param>
+            <param-name>servletContextKey</param-name>
+            <param-value>servletService</param-value>
+        </init-param>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+
     <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>/static/*</url-pattern>
+        <servlet-name>Service</servlet-name>
+        <url-pattern>/service</url-pattern>
     </servlet-mapping>
+
+    <!--<servlet-mapping>-->
+    <!--<servlet-name>default</servlet-name>-->
+    <!--<url-pattern>/static/*</url-pattern>-->
+    <!--</servlet-mapping>-->
 </web-app>

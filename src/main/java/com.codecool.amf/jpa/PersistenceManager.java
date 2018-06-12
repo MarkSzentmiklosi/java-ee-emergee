@@ -2,15 +2,14 @@ package com.codecool.amf.jpa;
 
 import javax.persistence.*;
 
-public enum PersistenceManager {
-    INSTANCE;
+public class PersistenceManager {
 
     private EntityManagerFactory emFactory;
     private EntityManager entityManager;
 
-    PersistenceManager() {
-        emFactory = Persistence.createEntityManagerFactory("emergeePU");
-        entityManager = emFactory.createEntityManager();
+    public PersistenceManager(EntityManager em, EntityManagerFactory emf) {
+        emFactory = emf;
+        entityManager = em;
     }
 
     public EntityManager getEntityManager() {

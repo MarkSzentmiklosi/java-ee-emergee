@@ -13,9 +13,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-public class EmailSender {
+public class emailSender {
 
-    public static void send(String to, String sub, String msg, String service) throws javax.mail.MessagingException {
+    public void send(String to, String sub, String msg, String service) throws javax.mail.MessagingException {
         //Get properties object
         String from = "amf.emergee@gmail.com";
         String password = "amfemergee123";
@@ -43,7 +43,7 @@ public class EmailSender {
 
     }
 
-    public static String createMsg(HRequest hRequest) {
+    public String createMsg(HRequest hRequest) {
         String template = "Dear ${partnerName},\n" +
                 "\n" +
                 "We have a new request for you.\n\n" +

@@ -8,8 +8,16 @@ import java.util.List;
 
 public class QueryManager {
 
-    public static List selectUserByEmail(String email) {
-        EntityManager entityManager = PersistenceManager.INSTANCE.getEntityManager();
+
+    private PersistenceManager persistenceManager;
+
+    public QueryManager(PersistenceManager persistenceManager) {
+
+        this.persistenceManager = persistenceManager;
+    }
+
+    public List selectUserByEmail(String email) {
+        EntityManager entityManager = persistenceManager.getEntityManager();
 
         String queryString = "SELECT U FROM User U WHERE U.email = :email";
 
@@ -21,8 +29,8 @@ public class QueryManager {
         return result;
     }
 
-    public static List selectPartnerByService(PService service) {
-        EntityManager entityManager = PersistenceManager.INSTANCE.getEntityManager();
+    public List selectPartnerByService(PService service) {
+        EntityManager entityManager = persistenceManager.getEntityManager();
 
         String queryString = "SELECT P FROM Partner P WHERE P.service = :service";
 
