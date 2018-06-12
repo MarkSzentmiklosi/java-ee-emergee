@@ -13,15 +13,9 @@ import javax.servlet.annotation.WebListener;
 @WebListener
 public class ThymeleafConfig implements ServletContextListener {
 
-    TemplateEngineUtil templateEngineUtil;
-
-    public ThymeleafConfig(TemplateEngineUtil templateEngineUtil) {
-        this.templateEngineUtil = templateEngineUtil;
-    }
-
     public void contextInitialized(ServletContextEvent sce) {
         TemplateEngine engine = templateEngine(sce.getServletContext());
-        templateEngineUtil.storeTemplateEngine(sce.getServletContext(), engine);
+        TemplateEngineUtil.storeTemplateEngine(sce.getServletContext(), engine);
     }
 
     public void contextDestroyed(ServletContextEvent sce) {

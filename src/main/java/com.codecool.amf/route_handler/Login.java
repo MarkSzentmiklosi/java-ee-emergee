@@ -12,12 +12,6 @@ import java.io.IOException;
 
 public class Login extends HttpServlet {
 
-    TemplateEngineUtil templateEngineUtil;
-
-    public Login(TemplateEngineUtil templateEngineUtil) {
-        this.templateEngineUtil = templateEngineUtil;
-    }
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
@@ -25,7 +19,7 @@ public class Login extends HttpServlet {
         if (session.getAttribute("user") != null) {
             resp.sendRedirect("/");
         } else {
-            TemplateEngine engine = templateEngineUtil.getTemplateEngine(req.getServletContext());
+            TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
             WebContext context = new WebContext(req, resp, req.getServletContext());
             context.setVariable("error", false);
             engine.process("login.html", context, resp.getWriter());

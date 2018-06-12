@@ -13,19 +13,13 @@ import java.io.IOException;
 
 public class Index extends HttpServlet {
 
-    TemplateEngineUtil templateEngineUtil;
-
-    public Index(TemplateEngineUtil templateEngineUtil) {
-        this.templateEngineUtil = templateEngineUtil;
-    }
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         if (session.getAttribute("user") == null) {
             resp.sendRedirect("/login");
         } else {
-            TemplateEngine engine = templateEngineUtil.getTemplateEngine(req.getServletContext());
+            TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
             WebContext context = new WebContext(req, resp, req.getServletContext());
             engine.process("index.html", context, resp.getWriter());
         }
