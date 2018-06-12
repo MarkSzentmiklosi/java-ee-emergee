@@ -25,21 +25,37 @@
             <div class="modal-body">
                 <ul class="list-group">
                     <strong>Name</strong>
-                    <a th:text="${session.user.getName()}" href="#" class="list-group-item list-group-item-action"></a>
+                    <a id="name" contentEditable=true th:text="${session.user.getName()}" href="#" class="list-group-item list-group-item-action"></a>
                     <br>
-                    <strong>Address</strong>
-                    <a th:text="${session.user.getAddress().toString()}" href="#"
+                    <strong>Country</strong>
+                    <a id="country" contentEditable=true th:text="${session.user.getAddress().getCountry()}" href="#"
+                       class="list-group-item list-group-item-action"></a>
+                    <br>
+                    <strong>City</strong>
+                    <a id="city" contentEditable=true th:text="${session.user.getAddress().getCity()}" href="#"
+                       class="list-group-item list-group-item-action"></a>
+                    <br>
+                    <strong>Zip Code</strong>
+                    <a id="zipCode" contentEditable=true th:text="${session.user.getAddress().getZipCode()}" href="#"
+                       class="list-group-item list-group-item-action"></a>
+                    <br>
+                    <strong>Street</strong>
+                    <a id="street" contentEditable=true th:text="${session.user.getAddress().getStreet()}" href="#"
+                       class="list-group-item list-group-item-action"></a>
+                    <br>
+                    <strong>House Number</strong>
+                    <a id="houseNumber" contentEditable=true th:text="${session.user.getAddress().getHouseNum()}" href="#"
                        class="list-group-item list-group-item-action"></a>
                     <br>
                     <strong>E-mail</strong>
                     <a th:text="${session.user.getEmail()}" href="#" class="list-group-item list-group-item-action"></a>
                     <br>
                     <strong>Phone Number</strong>
-                    <a th:text="${session.user.getPhoneNumber()}" href="#"
+                    <a id="phoneNumber" contentEditable=true th:text="${session.user.getPhoneNumber()}" href="#"
                        class="list-group-item list-group-item-action"></a>
                     <br>
                     <strong>ID Card Number</strong>
-                    <a th:text="${session.user.getIdCardNum()}" href="#"
+                    <a id="idCardNum" contentEditable=true th:text="${session.user.getIdCardNum()}" href="#"
                        class="list-group-item list-group-item-action"></a>
                 </ul>
             </div>
