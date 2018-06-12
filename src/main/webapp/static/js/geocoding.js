@@ -25,23 +25,19 @@ function handleJSON(json) {
         let simplifiedComponents = harvestAddressComponents(addressComponents);
 
         simplifiedComponents["label"] = addressLabel;
-
-        $("#loc").text("Are you here: " + addressLabel + "?");
-        $("#myModal").modal("show");
-        let servicec = {service};
+        let service_type = {service};
         let address = simplifiedComponents;
-        let data = {servicec,address};
+        let data = {service_type,address};
 
-        $("#yesBtn").click(function () {
-            $.ajax({
-                url: '/service',
-                type: 'POST',
-                data: JSON.stringify(data),
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                async: false
-            });
+        $.ajax({
+            url: '/service',
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            async: false
         });
+
     }else{
         alert("Something went wrong. Please try again.")
     }
