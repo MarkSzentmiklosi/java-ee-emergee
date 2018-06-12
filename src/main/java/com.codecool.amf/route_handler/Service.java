@@ -1,19 +1,12 @@
 package com.codecool.amf.route_handler;
 
-import com.codecool.amf.EmailSender;
 import com.codecool.amf.jpa.PersistenceManager;
 import com.codecool.amf.jpa.QueryManager;
-import com.codecool.amf.model.HRequest;
-import com.codecool.amf.model.Location;
-import com.codecool.amf.model.Partner;
-import com.codecool.amf.model.PService;
-import com.codecool.amf.model.User;
+import com.codecool.amf.model.*;
 import org.json.JSONObject;
 
 import javax.mail.MessagingException;
-import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,8 +16,17 @@ import java.io.InputStreamReader;
 import java.sql.Timestamp;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/service"})
 public class Service extends HttpServlet {
+
+    private final com.codecool.amf.emailSender emailSender;
+    private final PersistenceManager persistenceManager;
+    private final QueryManager queryManager;
+
+    public Service(com.codecool.amf.emailSender emailSender, PersistenceManager persistenceManager, QueryManager queryManager) {
+        this.emailSender = emailSender;
+        this.persistenceManager = persistenceManager;
+        this.queryManager = queryManager;
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,9 +42,7 @@ public class Service extends HttpServlet {
 
         HRequest hRequest = new HRequest(time, requestedPartner, location, user, locationLabel);
 
-        EntityManager em = PersistenceManager.INSTANCE.getEntityManager();
-        em.persist(hRequest);
-        em.close();
+        persistenceManager.persistEntity(hRequest);
 
         sendEmailForPartner(service.getString("service"), hRequest);
     }
@@ -50,21 +50,19 @@ public class Service extends HttpServlet {
     private JSONObject getJsonObjectFromRequest(HttpServletRequest req) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(req.getInputStream()));
         String json = "";
-        if (br != null) {
-            json = br.readLine();
-        }
+        json = br.readLine();
         return new JSONObject(json.toString());
     }
 
     private void sendEmailForPartner(String service, HRequest hRequest) {
-        String msg = EmailSender.createMsg(hRequest);
+        String msg = emailSender.createMsg(hRequest);
 
         try {
             String subject = "Request " + hRequest.getCreationDate();
             String partnerEmail = hRequest.getPartner().getEmail();
             String serviceType = service;
 
-            EmailSender.send(partnerEmail, subject, msg, serviceType);
+            emailSender.send(partnerEmail, subject, msg, serviceType);
 
         } catch (MessagingException e) {
             e.printStackTrace();
@@ -74,14 +72,14 @@ public class Service extends HttpServlet {
     private User getUser(HttpServletRequest request) {
         User userDetails = (User) request.getSession().getAttribute("user");
         String userEmail = userDetails.getEmail();
-        List users = QueryManager.selectUserByEmail(userEmail);
+        List users = queryManager.selectUserByEmail(userEmail);
         User user = (User) users.get(0);
         return user;
     }
 
     private Partner getPartner(JSONObject serviceJSON) {
         PService service = getPService(serviceJSON.getString("service"));
-        List<Partner> partnerList = QueryManager.selectPartnerByService(service);
+        List<Partner> partnerList = queryManager.selectPartnerByService(service);
 
         return partnerList.get(0);
     }
