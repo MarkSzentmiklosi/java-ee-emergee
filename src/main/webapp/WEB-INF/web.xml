@@ -68,6 +68,28 @@
         <load-on-startup>6</load-on-startup>
     </servlet>
 
+    <servlet>
+        <servlet-name>GoogleLogin</servlet-name>
+        <servlet-class>com.codecool.amf.initServlet.DelegateHttpServlet</servlet-class>
+
+        <init-param>
+            <param-name>servletContextKey</param-name>
+            <param-value>servletGoogleLogin</param-value>
+        </init-param>
+        <load-on-startup>7</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <servlet-name>UpdateProfile</servlet-name>
+        <servlet-class>com.codecool.amf.initServlet.DelegateHttpServlet</servlet-class>
+
+        <init-param>
+            <param-name>servletContextKey</param-name>
+            <param-value>servletUpdateProfile</param-value>
+        </init-param>
+        <load-on-startup>8</load-on-startup>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>Service</servlet-name>
         <url-pattern>/service</url-pattern>
@@ -94,7 +116,17 @@
     </servlet-mapping>
 
     <servlet-mapping>
+        <servlet-name>GoogleLogin</servlet-name>
+        <url-pattern>/glogin</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>/static/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>UpdateProfile</servlet-name>
+        <url-pattern>/updateProfile</url-pattern>
     </servlet-mapping>
 </web-app>

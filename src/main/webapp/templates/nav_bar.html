@@ -2,13 +2,16 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="google-signin-client_id" content="937806585060-f0cgf0ipskqbj73qktojang6oblu8n2e.apps.googleusercontent.com">
+
 </head>
 <body>
+<script src="/static/js/logout.js" rel="script"></script>
 <nav th:fragment="bar" class="navbar sticky-top navbar-light bg-light">
     <a href="#" class="navbar-brand float-left glyphicon glyphicon-cog" data-toggle="modal"
        data-target="#profileModal"></a>
     <div th:text="${session.user.getName()}" class="navbar-brand mb-0 h1"></div>
-    <a class="navbar-brand float-right glyphicon glyphicon-log-out" href="/logout"></a>
+    <a class="navbar-brand float-right glyphicon glyphicon-log-out" href="/logout" onclick="signOut();"></a>
 </nav>
 
 <!--User Profile Modal -->
@@ -49,5 +52,6 @@
         </div>
     </div>
 </div>
+<script src="https://apis.google.com/js/platform.js?onload=onLoad"></script>
 </body>
 </html>
