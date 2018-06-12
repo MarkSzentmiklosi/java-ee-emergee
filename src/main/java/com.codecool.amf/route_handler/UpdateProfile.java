@@ -1,6 +1,7 @@
 package com.codecool.amf.route_handler;
 
 import com.codecool.amf.jpa.PersistenceManager;
+import com.codecool.amf.jpa.QueryManager;
 import com.codecool.amf.model.Address;
 import com.codecool.amf.model.User;
 
@@ -14,9 +15,12 @@ import java.io.IOException;
 public class UpdateProfile extends HttpServlet {
 
     private final PersistenceManager persistenceManager;
+    private final QueryManager queryManager;
 
-    public UpdateProfile(PersistenceManager persistenceManager) {
+
+    public UpdateProfile(PersistenceManager persistenceManager, QueryManager queryManager) {
         this.persistenceManager = persistenceManager;
+        this.queryManager = queryManager;
     }
 
 
@@ -38,12 +42,19 @@ public class UpdateProfile extends HttpServlet {
 
         String houseNum = req.getParameter("houseNum");
 
+        Address newAddress;
+        Address dbAddress = queryManager.getHomeAddress(country, city, zipCode, street, houseNum);
 
-        Address address = new Address(country, city, zipCode, street, houseNum);
+        if (dbAddress != null) {
+            newAddress = dbAddress;
 
-        User newUser = new User(name, email, phoneNumber, idCardNum, address);
+        } else {
+            newAddress = new Address(country, city, zipCode, street, houseNum);
+            persistenceManager.persistEntity(newAddress);
+        }
 
-        persistenceManager.persistEntity(address);
+        User newUser = new User(name, email, phoneNumber, idCardNum, newAddress);
+
         persistenceManager.persistEntity(newUser);
 
         session.setAttribute("user", newUser);

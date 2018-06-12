@@ -28,7 +28,7 @@ public class InitializationServlet extends HttpServlet {
         GoogleLogin googleLogin = new GoogleLogin(queryManager);
         CheckUserLogin checkUserLogin = new CheckUserLogin(queryManager, authenticationManager);
         Logout logout = new Logout();
-        UpdateProfile updateProfile = new UpdateProfile(persistenceManager);
+        UpdateProfile updateProfile = new UpdateProfile(persistenceManager, queryManager);
 
         getServletContext().setAttribute("servletService", service);
         getServletContext().setAttribute("servletIndex", index);
