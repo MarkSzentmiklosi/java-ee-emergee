@@ -4,8 +4,6 @@ import com.codecool.amf.authenticator.AuthenticationManager;
 import com.codecool.amf.jpa.QueryManager;
 import com.codecool.amf.model.User;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,17 +11,24 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/check_login_details"})
-public class checkUserLogin extends HttpServlet {
+public class CheckUserLogin extends HttpServlet {
+    private QueryManager queryManager;
+    private AuthenticationManager authenticationManager;
+
+    public CheckUserLogin(QueryManager queryManager, AuthenticationManager authenticationManager) {
+        this.queryManager = queryManager;
+        this.authenticationManager = authenticationManager;
+    }
+
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         String inputEmail = req.getParameter("email");
         String inputPassword = req.getParameter("password");
 
         String response = "invalid";
 
-        List users = QueryManager.selectUserByEmail(inputEmail);
+        List users = queryManager.selectUserByEmail(inputEmail);
 
         if (users.size() != 0) {
             User user = (User) users.get(0);
@@ -41,6 +46,6 @@ public class checkUserLogin extends HttpServlet {
     }
 
     private boolean isPasswordMatch(String inputPassword, String userPassword) {
-        return AuthenticationManager.checkPassword(inputPassword, userPassword);
+        return authenticationManager.checkPassword(inputPassword, userPassword);
     }
 }
