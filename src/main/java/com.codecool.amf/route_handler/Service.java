@@ -1,8 +1,13 @@
 package com.codecool.amf.route_handler;
 
+import com.codecool.amf.EmailSender;
 import com.codecool.amf.jpa.PersistenceManager;
 import com.codecool.amf.jpa.QueryManager;
-import com.codecool.amf.model.*;
+import com.codecool.amf.model.HRequest;
+import com.codecool.amf.model.Location;
+import com.codecool.amf.model.PService;
+import com.codecool.amf.model.Partner;
+import com.codecool.amf.model.User;
 import org.json.JSONObject;
 
 import javax.mail.MessagingException;
@@ -18,11 +23,11 @@ import java.util.List;
 
 public class Service extends HttpServlet {
 
-    private final com.codecool.amf.emailSender emailSender;
+    private final EmailSender emailSender;
     private final PersistenceManager persistenceManager;
     private final QueryManager queryManager;
 
-    public Service(com.codecool.amf.emailSender emailSender, PersistenceManager persistenceManager, QueryManager queryManager) {
+    public Service(EmailSender emailSender, PersistenceManager persistenceManager, QueryManager queryManager) {
         this.emailSender = emailSender;
         this.persistenceManager = persistenceManager;
         this.queryManager = queryManager;
@@ -44,7 +49,22 @@ public class Service extends HttpServlet {
 
         persistenceManager.persistEntity(hRequest);
 
-        sendEmailForPartner(service.getString("service"), hRequest);
+        notifyPartner(service.getString("service"), hRequest);
+        sendConfirmationForUser(service.getString("service"),hRequest);
+
+        resp.getWriter().write("{\"valami\": 3}");
+    }
+
+    private void sendConfirmationForUser(String serviceType,HRequest hRequest) {
+        String message = emailSender.createConfirmationMessage(hRequest);
+        try {
+            String subject = "Request " + hRequest.getCreationDate() + " confirmation";
+            String userEmail = hRequest.getUser().getEmail();
+            emailSender.send(userEmail, subject, message, serviceType);
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 
     private JSONObject getJsonObjectFromRequest(HttpServletRequest req) throws IOException {
@@ -54,7 +74,7 @@ public class Service extends HttpServlet {
         return new JSONObject(json.toString());
     }
 
-    private void sendEmailForPartner(String service, HRequest hRequest) {
+    private void notifyPartner(String service, HRequest hRequest) {
         String msg = emailSender.createMsg(hRequest);
 
         try {

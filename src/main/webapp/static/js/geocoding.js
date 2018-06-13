@@ -35,7 +35,9 @@ function handleJSON(json) {
             data: JSON.stringify(data),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
-            async: false
+            success: function () {
+                alert("We notified the suitable partner.")
+            }
         });
 
     }else{

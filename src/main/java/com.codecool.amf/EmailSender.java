@@ -12,8 +12,11 @@ import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
-public class emailSender {
+public class EmailSender {
+    static final Logger logger = Logger.getLogger(EmailSender.class+"");
 
     public void send(String to, String sub, String msg, String service) throws javax.mail.MessagingException {
         //Get properties object
@@ -39,7 +42,7 @@ public class emailSender {
         message.setText(msg);
         //send message
         Transport.send(message);
-        System.out.println("[INFO]: Email sent successfully to " + to + " for this service type " + service);
+        logger.info("Email was sent to: " + to);
 
     }
 
@@ -58,6 +61,22 @@ public class emailSender {
         data.put("clientName", hRequest.getUser().getName());
         data.put("location", hRequest.getLocationLabel());
         data.put("clientPhone", hRequest.getUser().getPhoneNumber());
+
+        String formattedMsg = StrSubstitutor.replace(template, data);
+
+        return formattedMsg;
+    }
+    public String createConfirmationMessage(HRequest hRequest) {
+        String template = "Dear ${userName},\n" +
+                "\n" +
+                "We would like to let you know that we notified our partner.\n\n" +
+                "${partnerName} will contact you soon.\n\n" +
+                "Best regard,\n" +
+                "AMF Team";
+
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("userName", hRequest.getUser().getName());
+        data.put("partnerName", hRequest.getPartner().getName());
 
         String formattedMsg = StrSubstitutor.replace(template, data);
 

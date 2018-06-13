@@ -10,6 +10,7 @@ import java.util.List;
 
 public class QueryManager {
 
+    private PersistenceManager persistenceManager;
 
     private EntityManager entityManager;
 
@@ -102,5 +103,29 @@ public class QueryManager {
         entityManager.getTransaction().begin();
         newAddress.setCity(input);
         entityManager.getTransaction().commit();
+    }
+
+    public Address getHomeAddress(String country, String city, String zipCode, String street, String houseNum) {
+        EntityManager entityManager = persistenceManager.getEntityManager();
+
+        String queryString = "SELECT A FROM Address A " +
+                "WHERE A.country = :country AND A.city = :city " +
+                "AND A.zipCode = :zipCode AND A.street = :street AND A.houseNum = :houseNum";
+
+        Query query = entityManager.createQuery(queryString);
+        query.setParameter("country", country);
+        query.setParameter("city", city);
+        query.setParameter("zipCode", zipCode);
+        query.setParameter("street", street);
+        query.setParameter("houseNum", houseNum);
+
+        List result = query.getResultList();
+
+        if (result.size() == 0) {
+            return null;
+        } else {
+            return (Address) result.get(0);
+        }
+
     }
 }
