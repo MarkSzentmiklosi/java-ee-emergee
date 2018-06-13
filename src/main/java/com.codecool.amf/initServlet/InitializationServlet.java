@@ -32,7 +32,7 @@ public class InitializationServlet extends HttpServlet {
         Service service = new Service(emailSender, persistenceManager, queryManager);
         Index index = new Index();
         Login login = new Login();
-        Registration registration = new Registration(authenticationManager);
+        Registration registration = new Registration(authenticationManager, persistenceManager);
         GoogleLogin googleLogin = new GoogleLogin(queryManager);
         CheckUserLogin checkUserLogin = new CheckUserLogin(queryManager, authenticationManager);
         Logout logout = new Logout();
