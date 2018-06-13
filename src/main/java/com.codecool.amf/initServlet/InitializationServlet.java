@@ -1,11 +1,11 @@
 package com.codecool.amf.initServlet;
 
+import com.codecool.amf.Controller.ProfileController;
 import com.codecool.amf.authenticator.AuthenticationManager;
 import com.codecool.amf.emailSender;
 import com.codecool.amf.jpa.PersistenceManager;
 import com.codecool.amf.jpa.QueryManager;
 import com.codecool.amf.route_handler.*;
-import com.codecool.amf.route_handler.edit_profile.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,36 +21,23 @@ public class InitializationServlet extends HttpServlet {
         AuthenticationManager authenticationManager = new AuthenticationManager();
 
         emailSender emailSender = new emailSender();
-        QueryManager queryManager = new QueryManager(persistenceManager);
+        QueryManager queryManager = new QueryManager(persistenceManager.getEntityManager());
+
+        ProfileController profileController = new ProfileController(queryManager);
 
         Service service = new Service(emailSender, persistenceManager, queryManager);
         Index index = new Index();
         Login login = new Login();
         CheckUserLogin checkUserLogin = new CheckUserLogin(queryManager, authenticationManager);
         Logout logout = new Logout();
-        SaveName saveName = new SaveName(queryManager);
-        SaveCountry saveCountry = new SaveCountry(queryManager);
-        SaveCity saveCity = new SaveCity(queryManager);
-        SaveZipCode saveZipCode = new SaveZipCode(queryManager);
-        SaveStreet saveStreet = new SaveStreet(queryManager);
-        SaveHouseNum saveHouseNum = new SaveHouseNum(queryManager);
-        SavePhoneNumber savePhoneNumber = new SavePhoneNumber(queryManager);
-        SaveIdCard saveIdCard = new SaveIdCard(queryManager);
+        SaveProfileSettings saveProfile = new SaveProfileSettings(profileController);
 
         getServletContext().setAttribute("servletService", service);
         getServletContext().setAttribute("servletIndex", index);
         getServletContext().setAttribute("servletLogin", login);
         getServletContext().setAttribute("servletCheckUser", checkUserLogin);
         getServletContext().setAttribute("servletLogout", logout);
-        getServletContext().setAttribute("servletSaveName", saveName);
-        getServletContext().setAttribute("servletSaveCounrty", saveCountry);
-        getServletContext().setAttribute("servletSaveCity", saveCity);
-        getServletContext().setAttribute("servletSaveZipCode", saveZipCode);
-        getServletContext().setAttribute("servletSaveStreet", saveStreet);
-        getServletContext().setAttribute("servletSaveHouseNum", saveHouseNum);
-        getServletContext().setAttribute("servletSavePhoneNumber", savePhoneNumber);
-        getServletContext().setAttribute("servletSaveIdCard", saveIdCard);
-
+        getServletContext().setAttribute("servletSaveProfile", saveProfile);
     }
 
     private PersistenceManager createPersistanceManager() {

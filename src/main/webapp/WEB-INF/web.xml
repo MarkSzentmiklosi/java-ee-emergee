@@ -69,91 +69,14 @@
     </servlet>
 
     <servlet>
-        <servlet-name>SaveName</servlet-name>
+        <servlet-name>SaveProfileSettings</servlet-name>
         <servlet-class>com.codecool.amf.initServlet.DelegateHttpServlet</servlet-class>
 
         <init-param>
             <param-name>servletContextKey</param-name>
-            <param-value>servletSaveName</param-value>
+            <param-value>servletSaveProfile</param-value>
         </init-param>
         <load-on-startup>7</load-on-startup>
-    </servlet>
-
-    <servlet>
-        <servlet-name>SaveCity</servlet-name>
-        <servlet-class>com.codecool.amf.initServlet.DelegateHttpServlet</servlet-class>
-
-        <init-param>
-            <param-name>servletContextKey</param-name>
-            <param-value>servletSaveCity</param-value>
-        </init-param>
-        <load-on-startup>8</load-on-startup>
-    </servlet>
-
-    <servlet>
-        <servlet-name>SaveCountry</servlet-name>
-        <servlet-class>com.codecool.amf.initServlet.DelegateHttpServlet</servlet-class>
-
-        <init-param>
-            <param-name>servletContextKey</param-name>
-            <param-value>servletSaveCountry</param-value>
-        </init-param>
-        <load-on-startup>9</load-on-startup>
-    </servlet>
-
-    <servlet>
-        <servlet-name>SaveHouseNum</servlet-name>
-        <servlet-class>com.codecool.amf.initServlet.DelegateHttpServlet</servlet-class>
-
-        <init-param>
-            <param-name>servletContextKey</param-name>
-            <param-value>servletSaveHouseNum</param-value>
-        </init-param>
-        <load-on-startup>10</load-on-startup>
-    </servlet>
-
-    <servlet>
-        <servlet-name>SaveIdCard</servlet-name>
-        <servlet-class>com.codecool.amf.initServlet.DelegateHttpServlet</servlet-class>
-
-        <init-param>
-            <param-name>servletContextKey</param-name>
-            <param-value>servletSaveIdCard</param-value>
-        </init-param>
-        <load-on-startup>11</load-on-startup>
-    </servlet>
-
-    <servlet>
-        <servlet-name>SavePhoneNumber</servlet-name>
-        <servlet-class>com.codecool.amf.initServlet.DelegateHttpServlet</servlet-class>
-
-        <init-param>
-            <param-name>servletContextKey</param-name>
-            <param-value>servletSavePhoneNumber</param-value>
-        </init-param>
-        <load-on-startup>12</load-on-startup>
-    </servlet>
-
-    <servlet>
-        <servlet-name>SaveStreet</servlet-name>
-        <servlet-class>com.codecool.amf.initServlet.DelegateHttpServlet</servlet-class>
-
-        <init-param>
-            <param-name>servletContextKey</param-name>
-            <param-value>servletSaveStreet</param-value>
-        </init-param>
-        <load-on-startup>13</load-on-startup>
-    </servlet>
-
-    <servlet>
-        <servlet-name>SaveZipCode</servlet-name>
-        <servlet-class>com.codecool.amf.initServlet.DelegateHttpServlet</servlet-class>
-
-        <init-param>
-            <param-name>servletContextKey</param-name>
-            <param-value>servletSaveZipCode</param-value>
-        </init-param>
-        <load-on-startup>14</load-on-startup>
     </servlet>
 
     <servlet-mapping>
@@ -187,36 +110,8 @@
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>SaveName</servlet-name>
-        <url-pattern>/saveName</url-pattern>
+        <servlet-name>SaveProfileSettings</servlet-name>
+        <url-pattern>/saveProfile</url-pattern>
     </servlet-mapping>
 
-    <servlet-mapping>
-        <servlet-name>SaveCity</servlet-name>
-        <url-pattern>/saveCity</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SaveCountry</servlet-name>
-        <url-pattern>/saveCountry</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SaveHouseNum</servlet-name>
-        <url-pattern>/saveHouseNum</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SaveIdCard</servlet-name>
-        <url-pattern>/saveIdCard</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SavePhoneNumber</servlet-name>
-        <url-pattern>/savePhoneNumber</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SaveStreet</servlet-name>
-        <url-pattern>/saveStreet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SaveZipCode</servlet-name>
-        <url-pattern>/saveZipCode</url-pattern>
-    </servlet-mapping>
 </web-app>
