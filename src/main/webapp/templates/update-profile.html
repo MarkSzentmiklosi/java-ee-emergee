@@ -17,14 +17,25 @@
     <title>Update your profile</title>
 </head>
 <body>
-<h2 th:text=" 'Welcome ' + ${session.userName} + '!'"></h2>
+<div th:if="${session.userName}">
+    <h2 th:text=" 'Welcome ' + ${session.userName} + '!'"></h2>
+</div>
+<div th:unless="${session.userName}">
+    <h2>Welcome!</h2>
+</div>
 <p>Please update your profile</p>
 </div>
 <form id="profileForm" th:action="@{/updateProfile}" method="post">
     <div class="modal-body">
         <ul class="list-group">
             <strong>Name</strong>
-            <input type="text" id="name" name="name" autofocus="autofocus" required th:value="${session.userName}"/>
+            <div th:if="${session.userName}">
+                <input type="text" id="name_empty" name="name" autofocus="autofocus" th:value="${session.userName}"
+                       required/>
+            </div>
+            <div th:unless="${session.userName}">
+                <input type="text" id="name" name="name" autofocus="autofocus" required/>
+            </div>
             <br>
             <strong>Country</strong>
             <input type="text" id="country" name="country" autofocus="autofocus" required/>

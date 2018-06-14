@@ -1,5 +1,6 @@
 package com.codecool.amf.route_handler;
 
+import com.codecool.amf.authenticator.AuthenticationManager;
 import com.codecool.amf.jpa.PersistenceManager;
 import com.codecool.amf.jpa.QueryManager;
 import com.codecool.amf.model.Address;
@@ -16,11 +17,13 @@ public class UpdateProfile extends HttpServlet {
 
     private final PersistenceManager persistenceManager;
     private final QueryManager queryManager;
+    private final AuthenticationManager authenticationManager;
 
 
-    public UpdateProfile(PersistenceManager persistenceManager, QueryManager queryManager) {
+    public UpdateProfile(PersistenceManager persistenceManager, QueryManager queryManager, AuthenticationManager authenticationManager) {
         this.persistenceManager = persistenceManager;
         this.queryManager = queryManager;
+        this.authenticationManager = authenticationManager;
     }
 
 
@@ -30,6 +33,7 @@ public class UpdateProfile extends HttpServlet {
 
         String name = req.getParameter("name");
         String email = (String) session.getAttribute("email");
+        String password = (String) session.getAttribute("password");
         String phoneNumber = req.getParameter("phoneNumber");
         String idCardNum = req.getParameter("idCard");
 
@@ -54,6 +58,10 @@ public class UpdateProfile extends HttpServlet {
         }
 
         User newUser = new User(name, email, phoneNumber, idCardNum, newAddress);
+
+        if (password != null) {
+            newUser.setPasswordHash(authenticationManager.hashPassword(password));
+        }
 
         persistenceManager.persistEntity(newUser);
 
