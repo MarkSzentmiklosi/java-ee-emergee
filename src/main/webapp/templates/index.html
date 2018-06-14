@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="google-signin-client_id"
+          content="937806585060-f0cgf0ipskqbj73qktojang6oblu8n2e.apps.googleusercontent.com">
 
     <title>AMF | Emergee| Home</title>
 
@@ -16,6 +18,7 @@
     <script src="/static/js/ui/bootstrap.min.js" rel="script" defer></script>
     <script src="/static/js/ui/plugins.js" rel="script" defer></script>
     <script src="/static/js/ui/active.js" rel="script" defer></script>
+    <script src="/static/js/logout.js" rel="script"></script>
 
     <!-- Emergee own JS files -->
     <script src="/static/js/geocoding.js" rel="script" defer></script>
@@ -58,7 +61,8 @@
         <nav class="amado-nav">
             <ul>
                 <li class="active"><a href="index.html">Home</a></li>
-                <li><a href="#">Profile</a></li>
+                <li><a href="#" data-toggle="modal"
+                       data-target="#profileModal">Profile</a></li>
             </ul>
         </nav>
 
@@ -156,6 +160,46 @@
     </div>
 </footer>
 <!-- ##### Footer Area End ##### -->
+
+<!--User Profile Modal -->
+
+<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">My Profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <strong>Name</strong>
+                    <a th:text="${session.user.getName()}" href="#" class="list-group-item list-group-item-action"></a>
+                    <br>
+                    <strong>Address</strong>
+                    <a th:text="${session.user.getAddress().toString()}" href="#"
+                       class="list-group-item list-group-item-action"></a>
+                    <br>
+                    <strong>E-mail</strong>
+                    <a th:text="${session.user.getEmail()}" href="#" class="list-group-item list-group-item-action"></a>
+                    <br>
+                    <strong>Phone Number</strong>
+                    <a th:text="${session.user.getPhoneNumber()}" href="#"
+                       class="list-group-item list-group-item-action"></a>
+                    <br>
+                    <strong>ID Card Number</strong>
+                    <a th:text="${session.user.getIdCardNum()}" href="#"
+                       class="list-group-item list-group-item-action"></a>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://apis.google.com/js/platform.js?onload=onLoad"></script>
 
 </body>
 </html>
