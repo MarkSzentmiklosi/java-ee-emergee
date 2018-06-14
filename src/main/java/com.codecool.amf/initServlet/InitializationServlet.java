@@ -10,6 +10,7 @@ import com.codecool.amf.route_handler.GoogleLogin;
 import com.codecool.amf.route_handler.Index;
 import com.codecool.amf.route_handler.Login;
 import com.codecool.amf.route_handler.Logout;
+import com.codecool.amf.route_handler.Registration;
 import com.codecool.amf.route_handler.Service;
 import com.codecool.amf.route_handler.UpdateProfile;
 
@@ -33,6 +34,7 @@ public class InitializationServlet extends HttpServlet {
         Service service = new Service(emailSender, persistenceManager, queryManager);
         Index index = new Index();
         Login login = new Login();
+        Registration registration = new Registration(authenticationManager, persistenceManager);
         GoogleLogin googleLogin = new GoogleLogin(queryManager);
         CheckUserLogin checkUserLogin = new CheckUserLogin(queryManager, authenticationManager);
         Logout logout = new Logout();
@@ -46,6 +48,7 @@ public class InitializationServlet extends HttpServlet {
         getServletContext().setAttribute("servletCheckUser", checkUserLogin);
         getServletContext().setAttribute("servletLogout", logout);
         getServletContext().setAttribute("servletUpdateProfile", updateProfile);
+        getServletContext().setAttribute("servletRegistration", registration);
 
         getServletContext().setAttribute("servletSaveProfile", saveProfile);
     }

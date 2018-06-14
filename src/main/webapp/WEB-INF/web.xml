@@ -47,6 +47,17 @@
     </servlet>
 
     <servlet>
+        <servlet-name>Registration</servlet-name>
+        <servlet-class>com.codecool.amf.initServlet.DelegateHttpServlet</servlet-class>
+
+        <init-param>
+            <param-name>servletContextKey</param-name>
+            <param-value>servletRegistration</param-value>
+        </init-param>
+        <load-on-startup>9</load-on-startup>
+    </servlet>
+
+    <servlet>
         <servlet-name>CheckUserLogin</servlet-name>
         <servlet-class>com.codecool.amf.initServlet.DelegateHttpServlet</servlet-class>
 
@@ -114,6 +125,11 @@
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>Registration</servlet-name>
+        <url-pattern>/registration</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
