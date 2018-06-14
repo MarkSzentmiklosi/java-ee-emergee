@@ -2,6 +2,8 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
+    <script src="/static/js/editProfile.js" rel="script" defer></script>
     <meta name="google-signin-client_id" content="937806585060-f0cgf0ipskqbj73qktojang6oblu8n2e.apps.googleusercontent.com">
 
 </head>
@@ -28,22 +30,38 @@
             <div class="modal-body">
                 <ul class="list-group">
                     <strong>Name</strong>
-                    <a th:text="${session.user.getName()}" href="#" class="list-group-item list-group-item-action"></a>
+                    <a id="name" contentEditable=true th:text="${session.user.getName()}" href="#" class="list-group-item list-group-item-action profileField"></a>
                     <br>
-                    <strong>Address</strong>
-                    <a th:text="${session.user.getAddress().toString()}" href="#"
-                       class="list-group-item list-group-item-action"></a>
+                    <strong>Country</strong>
+                    <a id="country" contentEditable=true th:text="${session.user.getAddress().getCountry()}" href="#"
+                       class="list-group-item list-group-item-action profileField"></a>
+                    <br>
+                    <strong>City</strong>
+                    <a id="city" contentEditable=true th:text="${session.user.getAddress().getCity()}" href="#"
+                       class="list-group-item list-group-item-action profileField"></a>
+                    <br>
+                    <strong>Zip Code</strong>
+                    <a id="zipCode" contentEditable=true th:text="${session.user.getAddress().getZipCode()}" href="#"
+                       class="list-group-item list-group-item-action profileField"></a>
+                    <br>
+                    <strong>Street</strong>
+                    <a id="street" contentEditable=true th:text="${session.user.getAddress().getStreet()}" href="#"
+                       class="list-group-item list-group-item-action profileField"></a>
+                    <br>
+                    <strong>House Number</strong>
+                    <a id="houseNumber" contentEditable=true th:text="${session.user.getAddress().getHouseNum()}" href="#"
+                       class="list-group-item list-group-item-action profileField"></a>
                     <br>
                     <strong>E-mail</strong>
                     <a th:text="${session.user.getEmail()}" href="#" class="list-group-item list-group-item-action"></a>
                     <br>
                     <strong>Phone Number</strong>
-                    <a th:text="${session.user.getPhoneNumber()}" href="#"
-                       class="list-group-item list-group-item-action"></a>
+                    <a id="phoneNumber" contentEditable=true th:text="${session.user.getPhoneNumber()}" href="#"
+                       class="list-group-item list-group-item-action profileField"></a>
                     <br>
                     <strong>ID Card Number</strong>
-                    <a th:text="${session.user.getIdCardNum()}" href="#"
-                       class="list-group-item list-group-item-action"></a>
+                    <a id="idCardNum" contentEditable=true th:text="${session.user.getIdCardNum()}" href="#"
+                       class="list-group-item list-group-item-action profileField"></a>
                 </ul>
             </div>
             <div class="modal-footer">

@@ -99,4 +99,9 @@ public class User {
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
     }
+
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 }
