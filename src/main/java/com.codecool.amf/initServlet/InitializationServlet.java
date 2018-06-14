@@ -31,7 +31,7 @@ public class InitializationServlet extends HttpServlet {
         GoogleLogin googleLogin = new GoogleLogin(queryManager);
         CheckUserLogin checkUserLogin = new CheckUserLogin(queryManager, authenticationManager);
         Logout logout = new Logout();
-        SaveProfileSettings saveProfile = new SaveProfileSettings(profileController);
+        SaveProfileSettings saveProfile = new SaveProfileSettings(profileController, queryManager);
 
         UpdateProfile updateProfile = new UpdateProfile(persistenceManager, queryManager, authenticationManager);
 
