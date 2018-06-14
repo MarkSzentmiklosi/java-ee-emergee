@@ -1,156 +1,59 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="google-signin-client_id"
           content="937806585060-f0cgf0ipskqbj73qktojang6oblu8n2e.apps.googleusercontent.com">
-
-    <title>AMF | Emergee| Home</title>
-
-    <link rel="icon" href="static/img/amf.png">
-
-    <!-- Emergee own JS files for UI -->
-    <script src="/static/js/ui/jquery-3.3.1.min.js" rel="script" defer language="JavaScript"
-            type="text/javascript"></script>
-    <script src="/static/js/ui/popper.min.js" rel="script" defer></script>
-    <script src="/static/js/ui/bootstrap.min.js" rel="script" defer></script>
-    <script src="/static/js/ui/plugins.js" rel="script" defer></script>
-    <script src="/static/js/ui/active.js" rel="script" defer></script>
     <script src="/static/js/logout.js" rel="script"></script>
+    <meta charset="UTF-8">
 
-    <!-- Emergee own JS files -->
-    <script src="/static/js/geocoding.js" rel="script" defer></script>
+    <!-- Latest Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <!-- Emergee own CSS files -->
-    <link rel="stylesheet" type="text/css" href="/static/css/core-style.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/css/index-style.css"/>
-    <link rel="stylesheet" type="text/css" href="/static/css/update-profile.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <title>Update your profile</title>
 </head>
 <body>
-
-<!-- ##### Main Content Wrapper Start ##### -->
-<div class="main-content-wrapper d-flex clearfix">
-
-    <!-- Mobile Nav (max width 767px)-->
-    <div class="mobile-nav">
-        <!-- Navbar Brand -->
-        <div class="amado-navbar-brand">
-            <a href="#"><img src="static/img/amf.png" alt=""></a>
-        </div>
-        <!-- Navbar Toggler -->
-        <div class="amado-navbar-toggler">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-
-    <!-- Header Area Start -->
-    <header class="header-area clearfix">
-        <!-- Close Icon -->
-        <div class="nav-close">
-            <i class="fa fa-close" aria-hidden="true"></i>
-        </div>
-        <!-- Logo -->
-        <div class="logo">
-            <a href="/"><img src="static/img/amf.png" alt=""></a>
-        </div>
-        <!-- Amado Nav -->
-        <nav class="amado-nav">
-            <ul>
-                <li class="active"><a href="#" data-toggle="modal"
-                                      data-target="#profileModal">Profile</a></li>
-            </ul>
-        </nav>
-
-        <div class="cart-fav-search mb-100">
-            <a href="/logout" onclick="signOut();" class="cart-nav"> Logout </a>
-        </div>
-    </header>
-    <!-- Header Area End -->
-
-    <div class="cart-table-area section-padding-100">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12 col-lg-8">
-                    <div class="checkout_details_area mt-50 clearfix">
-
-                        <div class="cart-title">
-                            <h2>Profile Data</h2>
-                        </div>
-
-                        <form id="profileForm" th:action="@{/updateProfile}" method="post">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <input type="text" class="form-control" id="name" th:value="${session.userName}">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <input type="email" class="form-control" id="email" placeholder="Email"
-                                           th:value="${session.email}">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <input type="text" class="form-control" id="idCard"
-                                           placeholder="ID card" name="idCard" required>
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <input type="text" class="form-control" id="country" name="country"
-                                           placeholder="Country" required>
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <input type="text" class="form-control" id="street" name="street"
-                                           placeholder="Address" required>
-                                </div>
-                                <div class="col-6 mb-3">
-                                    <input type="text" class="form-control" id="houseNum" name="houseNum"
-                                           placeholder="House number" required>
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <input type="text" class="form-control" id="city" placeholder="City" name="city"
-                                           required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <input type="text" class="form-control" id="zipCode" name="zipCode"
-                                           placeholder="Zip Code" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <input type="tel" class="form-control" id="phoneNumber"
-                                           placeholder="Phone No" name="phoneNumber" required>
-                                </div>
-                            </div>
-                            <button id="submitForm" type="submit">Save</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<h2 th:text=" 'Welcome ' + ${session.userName} + '!'"></h2>
+<p>Please update your profile</p>
 </div>
-
-<!-- ##### Footer Area Start ##### -->
-<footer class="footer_area clearfix">
-    <div class="container">
-        <div class="row align-items-center">
-            <!-- Single Widget Area -->
-            <div class="col-12 col-lg-4">
-                <div class="single_widget_area">
-                    <!-- Logo -->
-                    <div class="footer-logo footer-logo-img mr-50">
-                        <a href="/"><img src="static/img/amf-white.png" alt=""></a>
-                    </div>
-                    <!-- Copywrite Text -->
-                    <p class="copywrite">
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                        All rights reserved
-                    </p>
-                </div>
-            </div>
-        </div>
+<form id="profileForm" th:action="@{/updateProfile}" method="post">
+    <div class="modal-body">
+        <ul class="list-group">
+            <strong>Name</strong>
+            <input type="text" id="name" name="name" autofocus="autofocus" required th:value="${session.userName}"/>
+            <br>
+            <strong>Country</strong>
+            <input type="text" id="country" name="country" autofocus="autofocus" required/>
+            <br>
+            <strong>City</strong>
+            <input type="text" id="city" name="city" autofocus="autofocus" required/>
+            <br>
+            <strong>Zip Code</strong>
+            <input type="text" id="zipCode" name="zipCode" autofocus="autofocus" required/>
+            <br>
+            <strong>Street</strong>
+            <input type="text" id="street" name="street" autofocus="autofocus" required/>
+            <br>
+            <strong>House Number</strong>
+            <input type="text" id="houseNum" name="houseNum" autofocus="autofocus" required/>
+            <br>
+            <strong>E-mail</strong>
+            <a th:text="${session.email}" href="#" class="list-group-item list-group-item-action"></a>
+            <br>
+            <strong>Phone Number</strong>
+            <input type="text" id="phoneNumber" name="phoneNumber" autofocus="autofocus" required/>
+            <br>
+            <strong>ID Card Number</strong>
+            <input type="text" id="idCard" name="idCard" autofocus="autofocus" required/>
+        </ul>
     </div>
-</footer>
-
+    <button id="submitForm" type="submit">Save</button>
+</form>
+<a href="/logout" onclick="signOut();">Sign out</a>
 <script src="https://apis.google.com/js/platform.js?onload=onLoad"></script>
 </body>
 </html>
