@@ -10,8 +10,6 @@ import java.util.List;
 
 public class QueryManager {
 
-    private PersistenceManager persistenceManager;
-
     private EntityManager entityManager;
 
     public QueryManager(EntityManager entityManager) {
@@ -106,7 +104,6 @@ public class QueryManager {
     }
 
     public Address getHomeAddress(String country, String city, String zipCode, String street, String houseNum) {
-        EntityManager entityManager = persistenceManager.getEntityManager();
 
         String queryString = "SELECT A FROM Address A " +
                 "WHERE A.country = :country AND A.city = :city " +
