@@ -10,15 +10,15 @@
 
     <link rel="icon" href="static/img/amf.png">
 
-    <!-- Emergee own JS files -->
-    <script src="/static/js/geocoding.js" rel="script" defer></script>
-
     <!-- Emergee own JS files for UI -->
-    <script src="/static/js/ui/jquery-3.3.1.min.js" rel="script" defer></script>
+    <script src="/static/js/ui/jquery-3.3.1.min.js" rel="script" defer language="JavaScript" type="text/javascript"></script>
     <script src="/static/js/ui/popper.min.js" rel="script" defer></script>
     <script src="/static/js/ui/bootstrap.min.js" rel="script" defer></script>
     <script src="/static/js/ui/plugins.js" rel="script" defer></script>
     <script src="/static/js/ui/active.js" rel="script" defer></script>
+
+    <!-- Emergee own JS files -->
+    <script src="/static/js/geocoding.js" rel="script" defer></script>
 
     <!-- Emergee own CSS files -->
     <link rel="stylesheet" type="text/css" href="/static/css/core-style.css"/>
@@ -73,38 +73,37 @@
         <div class="amado-pro-catagory clearfix">
 
             <!-- Single Catagory -->
-            <div class="single-products-catagory clearfix">
+            <div class="single-products-catagory clearfix servicesHref" data-service="police">
                 <a href="#">
-
+                    <div class="img-container">
+                        <img src="static/img/police.png" alt="">
+                    </div>
                     <!-- Hover Content -->
                     <div class="hover-content">
                         <div class="line"></div>
                         <h4>Police</h4>
                     </div>
-                    <div class="img-container">
-                        <img src="static/img/police.png" alt="">
-                    </div>
                 </a>
             </div>
 
             <!-- Single Catagory -->
-            <div class="single-products-catagory clearfix">
+            <div class="single-products-catagory clearfix servicesHref" data-service="fire">
                 <a href="#">
+                    <div class="img-container servicesHref" data-service="fire">
+                        <img src="static/img/fire.png" alt="">
+                    </div>
                     <!-- Hover Content -->
                     <div class="hover-content">
                         <div class="line"></div>
                         <h4>Fire</h4>
                     </div>
-                    <div class="img-container">
-                        <img src="static/img/fire.png" alt="">
-                    </div>
                 </a>
             </div>
 
             <!-- Single Catagory -->
-            <div class="single-products-catagory clearfix">
+            <div class="single-products-catagory clearfix servicesHref" data-service="ambulance">
                 <a href="#">
-                    <div class="img-container">
+                    <div class="img-container servicesHref" data-service="ambulance">
                         <img src="static/img/med.png" alt="">
                     </div>
                     <!-- Hover Content -->
@@ -116,9 +115,9 @@
             </div>
 
             <!-- Single Catagory -->
-            <div class="single-products-catagory clearfix">
+            <div class="single-products-catagory clearfix servicesHref" data-service="repair">
                 <a href="#">
-                    <div class="img-container">
+                    <div class="img-container servicesHref" data-service="repair">
                         <img src="static/img/car.png" alt="">
                     </div>
                     <!-- Hover Content -->
