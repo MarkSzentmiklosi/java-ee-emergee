@@ -4,13 +4,7 @@ import com.codecool.amf.EmailSender;
 import com.codecool.amf.authenticator.AuthenticationManager;
 import com.codecool.amf.jpa.PersistenceManager;
 import com.codecool.amf.jpa.QueryManager;
-import com.codecool.amf.route_handler.CheckUserLogin;
-import com.codecool.amf.route_handler.GoogleLogin;
-import com.codecool.amf.route_handler.Index;
-import com.codecool.amf.route_handler.Login;
-import com.codecool.amf.route_handler.Logout;
-import com.codecool.amf.route_handler.Service;
-import com.codecool.amf.route_handler.UpdateProfile;
+import com.codecool.amf.route_handler.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -34,7 +28,8 @@ public class InitializationServlet extends HttpServlet {
         GoogleLogin googleLogin = new GoogleLogin(queryManager);
         CheckUserLogin checkUserLogin = new CheckUserLogin(queryManager, authenticationManager);
         Logout logout = new Logout();
-        UpdateProfile updateProfile = new UpdateProfile(persistenceManager, queryManager);
+        UpdateProfile updateProfile = new UpdateProfile(persistenceManager, queryManager, authenticationManager);
+        Registration registration = new Registration();
 
         getServletContext().setAttribute("servletService", service);
         getServletContext().setAttribute("servletIndex", index);
@@ -43,6 +38,7 @@ public class InitializationServlet extends HttpServlet {
         getServletContext().setAttribute("servletCheckUser", checkUserLogin);
         getServletContext().setAttribute("servletLogout", logout);
         getServletContext().setAttribute("servletUpdateProfile", updateProfile);
+        getServletContext().setAttribute("servletRegistration", registration);
 
     }
 
