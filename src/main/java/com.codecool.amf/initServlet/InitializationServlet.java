@@ -5,14 +5,7 @@ import com.codecool.amf.EmailSender;
 import com.codecool.amf.authenticator.AuthenticationManager;
 import com.codecool.amf.jpa.PersistenceManager;
 import com.codecool.amf.jpa.QueryManager;
-import com.codecool.amf.route_handler.CheckUserLogin;
-import com.codecool.amf.route_handler.GoogleLogin;
-import com.codecool.amf.route_handler.Index;
-import com.codecool.amf.route_handler.Login;
-import com.codecool.amf.route_handler.Logout;
-import com.codecool.amf.route_handler.Registration;
-import com.codecool.amf.route_handler.Service;
-import com.codecool.amf.route_handler.UpdateProfile;
+import com.codecool.amf.route_handler.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -28,19 +21,20 @@ public class InitializationServlet extends HttpServlet {
         AuthenticationManager authenticationManager = new AuthenticationManager();
 
         EmailSender emailSender = new EmailSender();
-        QueryManager queryManager = new QueryManager(persistenceManager);
+        QueryManager queryManager = new QueryManager(persistenceManager.getEntityManager());
         ProfileController profileController = new ProfileController(queryManager);
 
         Service service = new Service(emailSender, persistenceManager, queryManager);
         Index index = new Index();
         Login login = new Login();
-        Registration registration = new Registration(authenticationManager, persistenceManager);
+        Registration registration = new Registration();
         GoogleLogin googleLogin = new GoogleLogin(queryManager);
         CheckUserLogin checkUserLogin = new CheckUserLogin(queryManager, authenticationManager);
         Logout logout = new Logout();
+        SaveProfileSettings saveProfile = new SaveProfileSettings(profileController);
 
         UpdateProfile updateProfile = new UpdateProfile(persistenceManager, queryManager, authenticationManager);
-        Registration registration = new Registration();
+
 
         getServletContext().setAttribute("servletService", service);
         getServletContext().setAttribute("servletIndex", index);
