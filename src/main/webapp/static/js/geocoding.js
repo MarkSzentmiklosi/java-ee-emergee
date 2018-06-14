@@ -1,5 +1,17 @@
 var service;
-$(".servicesHref").click(getLocation);
+
+var touchmoved;
+$('.servicesHref').on('touchend', function (e) {
+    if (touchmoved != true) {
+        // you're on button click action
+        getLocation();
+    }
+
+}).on('touchmove', function (e) {
+    touchmoved = true;
+}).on('touchstart', function () {
+    touchmoved = false;
+});
 
 function getLocation() {
     service = $(this).data("service");
@@ -15,11 +27,11 @@ function callGoogleApi(position) {
         "latlng=" + latitude + "," + longitude +
         "&key=AIzaSyDiU243_BtwUd2m6j7I1FSHZwf4rhyAhY4";
 
-    $.getJSON(url,handleJSON);
+    $.getJSON(url, handleJSON);
 }
 
 function handleJSON(json) {
-    if(json["status"] == "OK"){
+    if (json["status"] == "OK") {
         let addressComponents = json["results"][0]['address_components'];
         let addressLabel = json["results"][0]["formatted_address"];
         let simplifiedComponents = harvestAddressComponents(addressComponents);
@@ -27,7 +39,7 @@ function handleJSON(json) {
         simplifiedComponents["label"] = addressLabel;
         let service_type = {service};
         let address = simplifiedComponents;
-        let data = {service_type,address};
+        let data = {service_type, address};
 
         $.ajax({
             url: '/service',
@@ -40,7 +52,7 @@ function handleJSON(json) {
             }
         });
 
-    }else{
+    } else {
         alert("Something went wrong. Please try again.")
     }
 
@@ -48,7 +60,7 @@ function handleJSON(json) {
 
 function harvestAddressComponents(addressComps) {
     let comps = {};
-    for(var component in addressComps){
+    for (var component in addressComps) {
         let type = addressComps[component]["types"][0];
         let label = addressComps[component]["long_name"];
         comps[type] = label;

@@ -1,58 +1,205 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Emergee</title>
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="google-signin-client_id"
+          content="937806585060-f0cgf0ipskqbj73qktojang6oblu8n2e.apps.googleusercontent.com">
 
-    <!-- Latest Bootstrap-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>AMF | Emergee| Home</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="icon" href="static/img/amf.png">
 
-    <!-- jQuery and Bootstrap's JS-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous" defer></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous" defer></script>
+    <!-- Emergee own JS files for UI -->
+    <script src="/static/js/ui/jquery-3.3.1.min.js" rel="script" defer></script>
+    <script src="/static/js/ui/popper.min.js" rel="script" defer></script>
+    <script src="/static/js/ui/bootstrap.min.js" rel="script" defer></script>
+    <script src="/static/js/ui/plugins.js" rel="script" defer></script>
+    <script src="/static/js/ui/active.js" rel="script" defer></script>
 
     <!-- Emergee own JS files -->
     <script src="/static/js/geocoding.js" rel="script" defer></script>
+    <script src="/static/js/logout.js" rel="script"></script>
     <script src="/static/js/disableButtons.js" rel="script" defer></script>
-    <link rel="stylesheet" type="text/css" href="/static/css/grid.css"/>
+
+    <!-- Emergee own CSS files -->
+    <link rel="stylesheet" type="text/css" href="/static/css/core-style.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/index-style.css"/>
+    
 </head>
 <body>
-<div th:replace="nav_bar.html" : bar></div>
-<div class="grid-container">
-    <button class="servicesHref item-a" data-service="ambulance">AMBULANCE</button>
-    <button class="servicesHref item-b" data-service="fire">FIRE</button>
-    <button class="servicesHref item-c" data-service="police">POLICE</button>
-    <button class="servicesHref item-d" data-service="repair">SERVICE</button>
-</div>
-<!-- Modal -->
-<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="profileModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
+<!-- ##### Main Content Wrapper Start ##### -->
+<div class="main-content-wrapper d-flex clearfix">
 
+    <!-- Mobile Nav (max width 767px)-->
+    <div class="mobile-nav">
+        <!-- Navbar Brand -->
+        <div class="amado-navbar-brand">
+            <a href="/"><img src="static/img/amf.png" alt=""></a>
+        </div>
+        <!-- Navbar Toggler -->
+        <div class="amado-navbar-toggler">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <!-- Header Area Start -->
+    <header class="header-area clearfix">
+        <!-- Close Icon -->
+        <div class="nav-close">
+            <i class="fa fa-close" aria-hidden="true"></i>
+        </div>
+        <!-- Logo -->
+        <div class="logo">
+            <a href="/"><img src="static/img/amf.png" alt=""></a>
+        </div>
+        <!-- Amado Nav -->
+        <nav class="amado-nav">
+            <ul>
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="#" data-toggle="modal"
+                       data-target="#profileModal">Profile</a></li>
+            </ul>
+        </nav>
+
+        <div class="cart-fav-search mb-100">
+            <a href="/logout" onclick="signOut();" class="cart-nav"> Logout </a>
+        </div>
+    </header>
+    <!-- Header Area End -->
+
+    <!-- Product Catagories Area Start -->
+    <div class="products-catagories-area clearfix">
+        <div class="amado-pro-catagory clearfix">
+
+            <!-- Single Catagory -->
+            <div class="single-products-catagory clearfix servicesHref" data-service="police">
+                <a href="#">
+                    <div class="img-container">
+                        <img src="static/img/police.png" alt="">
+                    </div>
+                    <!-- Hover Content -->
+                    <div class="hover-content">
+                        <div class="line"></div>
+                        <h4>Police</h4>
+                    </div>
+                </a>
             </div>
-            <div class="modal-body">
-                <p id="loc"></p>
+
+            <!-- Single Catagory -->
+            <div class="single-products-catagory clearfix servicesHref" data-service="fire">
+                <a href="#">
+                    <div class="img-container servicesHref" data-service="fire">
+                        <img src="static/img/fire.png" alt="">
+                    </div>
+                    <!-- Hover Content -->
+                    <div class="hover-content">
+                        <div class="line"></div>
+                        <h4>Fire</h4>
+                    </div>
+                </a>
             </div>
-            <div class="modal-footer">
-                <button type="button" id="yesBtn" class="btn btn-default" data-dismiss="modal">Yes</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+            <!-- Single Catagory -->
+            <div class="single-products-catagory clearfix servicesHref" data-service="ambulance">
+                <a href="#">
+                    <div class="img-container servicesHref" data-service="ambulance">
+                        <img src="static/img/med.png" alt="">
+                    </div>
+                    <!-- Hover Content -->
+                    <div class="hover-content">
+                        <div class="line"></div>
+                        <h4>Ambulance</h4>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Single Catagory -->
+            <div class="single-products-catagory clearfix servicesHref" data-service="repair">
+                <a href="#">
+                    <div class="img-container servicesHref" data-service="repair">
+                        <img src="static/img/car.png" alt="">
+                    </div>
+                    <!-- Hover Content -->
+                    <div class="hover-content">
+                        <div class="line"></div>
+                        <h4>Service</h4>
+                    </div>
+                </a>
             </div>
         </div>
-
     </div>
 </div>
+<!-- ##### Main Content Wrapper End ##### -->
+
+<!-- ##### Footer Area Start ##### -->
+<footer class="footer_area clearfix">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Single Widget Area -->
+            <div class="col-12 col-lg-4">
+                <div class="single_widget_area">
+                    <!-- Logo -->
+                    <div class="footer-logo footer-logo-img mr-50">
+                        <a href="/"><img src="static/img/amf-white.png" alt=""></a>
+                    </div>
+                    <!-- Copywrite Text -->
+                    <p class="copywrite">
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                        All rights reserved
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- ##### Footer Area End ##### -->
+
+<!--User Profile Modal -->
+
+<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">My Profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <strong>Name</strong>
+                    <a th:text="${session.user.getName()}" href="#" class="list-group-item list-group-item-action"></a>
+                    <br>
+                    <strong>Address</strong>
+                    <a th:text="${session.user.getAddress().toString()}" href="#"
+                       class="list-group-item list-group-item-action"></a>
+                    <br>
+                    <strong>E-mail</strong>
+                    <a th:text="${session.user.getEmail()}" href="#" class="list-group-item list-group-item-action"></a>
+                    <br>
+                    <strong>Phone Number</strong>
+                    <a th:text="${session.user.getPhoneNumber()}" href="#"
+                       class="list-group-item list-group-item-action"></a>
+                    <br>
+                    <strong>ID Card Number</strong>
+                    <a th:text="${session.user.getIdCardNum()}" href="#"
+                       class="list-group-item list-group-item-action"></a>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://apis.google.com/js/platform.js?onload=onLoad"></script>
+
 </body>
 </html>

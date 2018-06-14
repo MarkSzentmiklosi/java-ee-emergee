@@ -1,0 +1,9 @@
+.img-container {
+    padding: 30% 20% 20% 20%;
+}
+
+.footer-logo-img {
+    display: block;
+    max-width: 60px;
+    width: auto;
+}
