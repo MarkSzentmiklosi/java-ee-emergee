@@ -10,30 +10,13 @@
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="/static/js/googleLogin.js" rel="script" defer></script>
     <script src="/static/js/ui/login.js" rel="script" defer></script>
+    <script src="/static/js/registrationValidate.js" rel="script" defer></script>
     <meta name="google-signin-client_id"
           content="937806585060-f0cgf0ipskqbj73qktojang6oblu8n2e.apps.googleusercontent.com">
 
 </head>
 
 <body>
-<!--<h1>Login page</h1>-->
-
-<!--<form id="loginForm" th:action="@{/login}" method="post">-->
-<!--<p>-->
-<!--<label for="email">E-mail:</label><br>-->
-<!--<input type="text" id="email" name="email" autofocus="autofocus" required/>-->
-<!--</p>-->
-
-<!--<p>-->
-<!--<label for="password">Password:</label><br>-->
-<!--<input type="password" id="password" name="password" required/><br/>-->
-<!--</p>-->
-<!--<button id="submitLogin" type="submit">Login</button>-->
-<!--</form>-->
-<!--<div class="g-signin2" data-onsuccess="onSignIn"></div>-->
-
-<!-- Mixins-->
-<!-- Pen Title-->
 <div class="pen-title">
     <h1>Emergee</h1>
 </div>
@@ -67,7 +50,7 @@
         <h1 class="title">Register
             <div class="close"></div>
         </h1>
-        <form id="registrationForm" th:action="@{/registration}" method="post">
+        <form name="registrationForm" id="registrationForm" th:action="@{/registration}" method="post">
             <div class="input-container">
                 <input type="email" id="registration_email" name="registration_email" required="required"/>
                 <label for="email">E-mail</label>
@@ -79,12 +62,13 @@
                 <div class="bar"></div>
             </div>
             <div class="input-container">
-                <input type="password" id="repeat_password" required="required"/>
+                <input type="password" id="repeat_password" name="repeat_password" required="required"/>
                 <label for="password">Repeat Password</label>
                 <div class="bar"></div>
             </div>
+            <div class="container" id="password_error"></div>
             <div class="button-container">
-                <button><span>SIGN UP</span></button>
+                <button id="sign-up"><span>SIGN UP</span></button>
             </div>
         </form>
     </div>
