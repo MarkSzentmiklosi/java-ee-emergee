@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
     <script src="/static/js/editProfile.js" rel="script" defer></script>
-    <meta name="google-signin-client_id" content="937806585060-f0cgf0ipskqbj73qktojang6oblu8n2e.apps.googleusercontent.com">
+    <meta name="google-signin-client_id"
+          content="937806585060-f0cgf0ipskqbj73qktojang6oblu8n2e.apps.googleusercontent.com">
 
 </head>
 <body>
@@ -30,7 +31,8 @@
             <div class="modal-body">
                 <ul class="list-group">
                     <strong>Name</strong>
-                    <a id="name" contentEditable=true th:text="${session.user.getName()}" href="#" class="list-group-item list-group-item-action profileField"></a>
+                    <a id="name" contentEditable=true th:text="${session.user.getName()}" href="#"
+                       class="list-group-item list-group-item-action profileField"></a>
                     <br>
                     <strong>Country</strong>
                     <a id="country" contentEditable=true th:text="${session.user.getAddress().getCountry()}" href="#"
@@ -49,7 +51,8 @@
                        class="list-group-item list-group-item-action profileField"></a>
                     <br>
                     <strong>House Number</strong>
-                    <a id="houseNumber" contentEditable=true th:text="${session.user.getAddress().getHouseNum()}" href="#"
+                    <a id="houseNumber" contentEditable=true th:text="${session.user.getAddress().getHouseNum()}"
+                       href="#"
                        class="list-group-item list-group-item-action profileField"></a>
                     <br>
                     <strong>E-mail</strong>
