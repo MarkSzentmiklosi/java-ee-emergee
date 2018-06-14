@@ -90,6 +90,17 @@
         <load-on-startup>8</load-on-startup>
     </servlet>
 
+    <servlet>
+        <servlet-name>SaveProfileSettings</servlet-name>
+        <servlet-class>com.codecool.amf.initServlet.DelegateHttpServlet</servlet-class>
+
+        <init-param>
+            <param-name>servletContextKey</param-name>
+            <param-value>servletSaveProfile</param-value>
+        </init-param>
+        <load-on-startup>9</load-on-startup>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>Service</servlet-name>
         <url-pattern>/service</url-pattern>
@@ -124,6 +135,12 @@
         <servlet-name>default</servlet-name>
         <url-pattern>/static/*</url-pattern>
     </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>SaveProfileSettings</servlet-name>
+        <url-pattern>/saveProfile</url-pattern>
+    </servlet-mapping>
+
 
     <servlet-mapping>
         <servlet-name>UpdateProfile</servlet-name>
