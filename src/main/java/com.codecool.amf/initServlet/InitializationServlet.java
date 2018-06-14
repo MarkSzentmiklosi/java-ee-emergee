@@ -32,7 +32,7 @@ public class InitializationServlet extends HttpServlet {
         CheckUserLogin checkUserLogin = new CheckUserLogin(queryManager, authenticationManager);
         Logout logout = new Logout();
         SaveProfileSettings saveProfile = new SaveProfileSettings(profileController);
-
+        CheckRegistrationEmail checkRegistrationEmail = new CheckRegistrationEmail(queryManager);
         UpdateProfile updateProfile = new UpdateProfile(persistenceManager, queryManager, authenticationManager);
 
 
@@ -44,7 +44,7 @@ public class InitializationServlet extends HttpServlet {
         getServletContext().setAttribute("servletLogout", logout);
         getServletContext().setAttribute("servletUpdateProfile", updateProfile);
         getServletContext().setAttribute("servletRegistration", registration);
-
+        getServletContext().setAttribute("servletCheckRegistrationEmail", checkRegistrationEmail);
         getServletContext().setAttribute("servletSaveProfile", saveProfile);
     }
 
