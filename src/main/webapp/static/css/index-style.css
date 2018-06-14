@@ -7,3 +7,16 @@
     max-width: 60px;
     width: auto;
 }
+
+.modal-footer button {
+    width: 160px;
+    display: block;
+    height: 55px;
+    color: white;
+    border: none;
+    padding: 0 7px;
+    line-height: 56px;
+    background-color: #fbb710;
+    font-weight: 400;
+    cursor: pointer;
+}
