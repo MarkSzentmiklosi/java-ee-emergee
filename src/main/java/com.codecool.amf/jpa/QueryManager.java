@@ -125,4 +125,13 @@ public class QueryManager {
         }
 
     }
+
+    public boolean isEmailRegistered(String email) {
+        List users = selectUserByEmail(email);
+        if (users.size() == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
