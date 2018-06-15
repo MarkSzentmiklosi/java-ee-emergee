@@ -89,8 +89,8 @@
                                            th:value="${session.userName}" placeholder="Name">
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <input type="email" class="form-control" id="email" placeholder="Email"
-                                           th:value="${session.email}">
+                                    <span class="form-control" id="email"
+                                          th:text="${session.email}"></span>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <input type="text" class="form-control" id="idCard"

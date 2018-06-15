@@ -112,6 +112,17 @@
         <load-on-startup>9</load-on-startup>
     </servlet>
 
+    <servlet>
+        <servlet-name>CheckRegistrationEmail</servlet-name>
+        <servlet-class>com.codecool.amf.initServlet.DelegateHttpServlet</servlet-class>
+
+        <init-param>
+            <param-name>servletContextKey</param-name>
+            <param-value>servletCheckRegistrationEmail</param-value>
+        </init-param>
+        <load-on-startup>10</load-on-startup>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>Service</servlet-name>
         <url-pattern>/service</url-pattern>
@@ -157,9 +168,13 @@
         <url-pattern>/saveProfile</url-pattern>
     </servlet-mapping>
 
-
     <servlet-mapping>
         <servlet-name>UpdateProfile</servlet-name>
         <url-pattern>/updateProfile</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>CheckRegistrationEmail</servlet-name>
+        <url-pattern>/check_registration_email</url-pattern>
     </servlet-mapping>
 </web-app>
