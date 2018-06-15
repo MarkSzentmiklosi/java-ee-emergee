@@ -1,6 +1,7 @@
 package com.codecool.amf.route_handler;
 
 import com.codecool.amf.Controller.ProfileController;
+import com.codecool.amf.jpa.QueryManager;
 import com.codecool.amf.model.User;
 
 import javax.servlet.http.HttpServlet;
@@ -12,9 +13,11 @@ import java.io.IOException;
 public class SaveProfileSettings extends HttpServlet {
 
     ProfileController profileController;
+    QueryManager queryManager;
 
-    public SaveProfileSettings(ProfileController profileController) {
+    public SaveProfileSettings(ProfileController profileController, QueryManager queryManager) {
         this.profileController = profileController;
+        this.queryManager = queryManager;
     }
 
     @Override
@@ -25,7 +28,8 @@ public class SaveProfileSettings extends HttpServlet {
         HttpSession session = req.getSession();
         User currentUser = (User) session.getAttribute("user");
         profileController.updateUserProfile(currentUser, dataType, input);
-
+        User modifiedUser = (User) queryManager.selectUserByEmail(currentUser.getEmail()).get(0);
+        session.setAttribute("user", modifiedUser);
     }
 
 }
