@@ -1,18 +1,17 @@
-//package com.codecool.amf.route_handler;
-//
-//import javax.servlet.ServletException;
-//import javax.servlet.http.HttpServlet;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
-//import javax.servlet.http.HttpSession;
-//import java.io.IOException;
-//
-//public class Logout extends HttpServlet {
-//    @Override
-//    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//
-//        HttpSession session = req.getSession();
-//        session.invalidate();
-//        resp.sendRedirect("/");
-//    }
-//}
+package com.codecool.amf.route_handler;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpSession;
+
+@Controller
+public class Logout {
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    protected String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
+}
