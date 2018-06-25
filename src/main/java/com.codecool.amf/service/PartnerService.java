@@ -12,11 +12,11 @@ public class PartnerService {
     @Autowired
     PartnerRepository partnerRepository;
 
-    Partner selectPartnerByServiceType(ServiceType serviceType) {
+    public Partner selectPartnerByServiceType(ServiceType serviceType) {
         return partnerRepository.findByService(serviceType);
     }
 
-    void savePartner(Partner partner) {
+    public void savePartner(Partner partner) {
         partnerRepository.save(partner);
     }
 }
