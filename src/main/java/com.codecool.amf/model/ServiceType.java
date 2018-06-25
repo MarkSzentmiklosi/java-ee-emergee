@@ -1,6 +1,6 @@
 package com.codecool.amf.model;
 
-public enum PService {
+public enum ServiceType {
     POLICE,
     AMBULANCE,
     FIRE,
