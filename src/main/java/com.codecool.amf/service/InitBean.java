@@ -9,13 +9,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class InitBean {
 
-    public InitBean(AdressService adressService, PartnerService partnerService, UserService userService) {
+    public InitBean(AddressService addressService, PartnerService partnerService, UserService userService) {
 
         Address address1 = new Address("Hungary", "Budapest", "1125", "Fogaskereku utca", "5");
         Address address2 = new Address("USA", "Los Angeles", "CA 90021", "Sacramento St", "5");
 
-        adressService.saveAddress(address1);
-        adressService.saveAddress(address2);
+        addressService.saveAddress(address1);
+        addressService.saveAddress(address2);
 
         partnerService.savePartner(new Partner("Orszagos Mentoszolgalat", "bollaferenc@gmail.com", ServiceType.AMBULANCE));
         partnerService.savePartner(new Partner("Budapesti Rendor-fokapitanysag", "bollaferenc@gmail.com", ServiceType.POLICE));

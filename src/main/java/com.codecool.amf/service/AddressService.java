@@ -6,43 +6,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AdressService {
+public class AddressService {
 
     @Autowired
     AddressRepository addressRepository;
 
-    void updateCountry(Address address, String input) {
+    public void updateCountry(Address address, String input) {
         address.setCountry(input);
         addressRepository.save(address);
     }
 
-    void updateCity(Address address, String input) {
+    public void updateCity(Address address, String input) {
         address.setCity(input);
         addressRepository.save(address);
     }
 
-    void updateZip(Address address, String input) {
+    public void updateZip(Address address, String input) {
         address.setZipCode(input);
         addressRepository.save(address);
     }
 
-    void updateStreet(Address address, String input) {
+    public void updateStreet(Address address, String input) {
         address.setStreet(input);
         addressRepository.save(address);
     }
 
-    void updateHouseNumber(Address address, String input) {
+    public void updateHouseNumber(Address address, String input) {
         address.setHouseNum(input);
         addressRepository.save(address);
     }
 
-    void saveAddress(Address address) {
+    public void saveAddress(Address address) {
         addressRepository.save(address);
     }
 
-    Address getHomeAddress(String country, String city, String zipCode, String street, String houseNum) {
+    public Address getHomeAddress(String country, String city, String zipCode, String street, String houseNum) {
         return addressRepository.getAddressByCountryAndCityAndZipCodeAndStreetAndHouseNum(country, city, zipCode, street, houseNum);
     }
-
 
 }

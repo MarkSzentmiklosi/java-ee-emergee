@@ -19,17 +19,17 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-    void updateUserName(User user, String username) {
+    public void updateUserName(User user, String username) {
         user.setName(username);
         userRepository.save(user);
     }
 
-    void updateIdCardNum(User user, String cardNum) {
+    public void updateIdCardNum(User user, String cardNum) {
         user.setIdCardNum(cardNum);
         userRepository.save(user);
     }
 
-    void updatePhoneNumber(User user, String phoneNumber) {
+    public void updatePhoneNumber(User user, String phoneNumber) {
         user.setPhoneNumber(phoneNumber);
         userRepository.save(user);
     }
