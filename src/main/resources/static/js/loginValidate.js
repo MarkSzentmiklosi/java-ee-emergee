@@ -6,7 +6,7 @@ function checkLoginData(email, password) {
     let isValid = false;
 
     $.ajax({
-        url: "/check_login_details",
+        url: "/check_user_login",
         type: "POST",
         data: userData,
         async: false,
