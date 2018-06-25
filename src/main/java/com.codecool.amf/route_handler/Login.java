@@ -14,11 +14,15 @@ public class Login {
     public String login(HttpSession session, Model model) {
 
         if (session.getAttribute("user") != null) {
-            return "redirect:/";
+            return "index";
         } else {
             model.addAttribute("error", false);
             return "login";
         }
     }
 
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login2(HttpSession session, Model model) {
+        return "index";
+    }
 }

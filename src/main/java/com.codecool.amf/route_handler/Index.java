@@ -12,7 +12,7 @@ public class Index {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String renderIndex(HttpSession session) {
         if (session.getAttribute("user") == null) {
-            return "redirect:/login";
+            return "login";
         } else {
             return "index";
         }
