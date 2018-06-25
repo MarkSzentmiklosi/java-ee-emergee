@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AdressService {
+public class AddressService {
 
     @Autowired
     AddressRepository addressRepository;
@@ -36,11 +36,11 @@ public class AdressService {
         addressRepository.save(address);
     }
 
-    void saveAddress(Address address) {
+    public void saveAddress(Address address) {
         addressRepository.save(address);
     }
 
-    Address getHomeAddress(String country, String city, String zipCode, String street, String houseNum) {
+    public Address getHomeAddress(String country, String city, String zipCode, String street, String houseNum) {
         return addressRepository.getAddressByCountryAndCityAndZipCodeAndStreetAndHouseNum(country, city, zipCode, street, houseNum);
     }
 
