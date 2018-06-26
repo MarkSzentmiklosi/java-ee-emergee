@@ -1,7 +1,5 @@
 package com.codecool.amf.model;
 
-import com.codecool.amf.model.PService;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,16 +17,16 @@ public class Partner {
     private String email;
 
     @Enumerated
-    private PService service;
+    private ServiceType service;
 
     @OneToMany(mappedBy = "partner")
-    private List<HRequest> requests = new ArrayList<>();
+    private List<HelpRequest> requests = new ArrayList<>();
 
 
     public Partner() {
     }
 
-    public Partner(String name, String email, PService service) {
+    public Partner(String name, String email, ServiceType service) {
         this.name = name;
         this.email = email;
         this.service = service;

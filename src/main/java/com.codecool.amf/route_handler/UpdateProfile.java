@@ -1,34 +1,32 @@
 package com.codecool.amf.route_handler;
 
 import com.codecool.amf.authenticator.AuthenticationManager;
-import com.codecool.amf.jpa.PersistenceManager;
-import com.codecool.amf.jpa.QueryManager;
 import com.codecool.amf.model.Address;
 import com.codecool.amf.model.User;
+import com.codecool.amf.service.AddressService;
+import com.codecool.amf.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
-public class UpdateProfile extends HttpServlet {
+@Controller
+public class UpdateProfile {
 
-    private final PersistenceManager persistenceManager;
-    private final QueryManager queryManager;
-    private final AuthenticationManager authenticationManager;
+    @Autowired
+    UserService userService;
 
+    @Autowired
+    AddressService addressService;
 
-    public UpdateProfile(PersistenceManager persistenceManager, QueryManager queryManager, AuthenticationManager authenticationManager) {
-        this.persistenceManager = persistenceManager;
-        this.queryManager = queryManager;
-        this.authenticationManager = authenticationManager;
-    }
+    @Autowired
+    AuthenticationManager authenticationManager;
 
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @RequestMapping(value = "/updateProfile", method = RequestMethod.POST)
+    String createNewUserProfile(HttpServletRequest req) {
         HttpSession session = req.getSession();
 
         String name = req.getParameter("name");
@@ -47,14 +45,14 @@ public class UpdateProfile extends HttpServlet {
         String houseNum = req.getParameter("houseNum");
 
         Address newAddress;
-        Address dbAddress = queryManager.getHomeAddress(country, city, zipCode, street, houseNum);
+        Address dbAddress = addressService.getHomeAddress(country, city, zipCode, street, houseNum);
 
         if (dbAddress != null) {
             newAddress = dbAddress;
 
         } else {
             newAddress = new Address(country, city, zipCode, street, houseNum);
-            persistenceManager.persistEntity(newAddress);
+            addressService.saveAddress(newAddress);
         }
 
         User newUser = new User(name, email, phoneNumber, idCardNum, newAddress);
@@ -63,9 +61,10 @@ public class UpdateProfile extends HttpServlet {
             newUser.setPasswordHash(authenticationManager.hashPassword(password));
         }
 
-        persistenceManager.persistEntity(newUser);
+        userService.saveUser(newUser);
 
         session.setAttribute("user", newUser);
-        resp.sendRedirect("/");
+        return "redirect:/";
+
     }
 }

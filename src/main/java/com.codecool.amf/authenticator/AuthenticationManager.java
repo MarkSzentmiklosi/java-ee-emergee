@@ -1,7 +1,10 @@
 package com.codecool.amf.authenticator;
 
+import org.springframework.stereotype.Component;
+
 import static org.mindrot.jbcrypt.BCrypt.*;
 
+@Component
 public class AuthenticationManager {
 
     private static int workload = 12;

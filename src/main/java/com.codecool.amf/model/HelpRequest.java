@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 
 @Entity
 @Table(name = "help_request")
-public class HRequest {
+public class HelpRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,10 +32,10 @@ public class HRequest {
     private String locationLabel;
 
 
-    public HRequest() {
+    public HelpRequest() {
     }
 
-    public HRequest(long timestamp, Partner partner, Location location, User user, String locationLabel) {
+    public HelpRequest(long timestamp, Partner partner, Location location, User user, String locationLabel) {
         this.locationLabel = locationLabel;
         this.active = true;
         this.timestamp = timestamp;

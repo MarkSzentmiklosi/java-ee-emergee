@@ -1,35 +1,70 @@
 package com.codecool.amf.route_handler;
 
-import com.codecool.amf.Controller.ProfileController;
-import com.codecool.amf.jpa.QueryManager;
+import com.codecool.amf.model.Address;
 import com.codecool.amf.model.User;
+import com.codecool.amf.service.AddressService;
+import com.codecool.amf.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
+@RestController
 public class SaveProfileSettings extends HttpServlet {
 
-    ProfileController profileController;
-    QueryManager queryManager;
+    @Autowired
+    UserService userService;
 
-    public SaveProfileSettings(ProfileController profileController, QueryManager queryManager) {
-        this.profileController = profileController;
-        this.queryManager = queryManager;
-    }
+    @Autowired
+    AddressService addressService;
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    @RequestMapping(value = "/saveProfile", method = RequestMethod.POST)
+    public void saveProfileSettings(HttpSession session,
+                                    @RequestParam(name = "dataType") String dataType,
+                                    @RequestParam(name = "data") String input) {
 
-        String dataType = req.getParameter("dataType");
-        String input = req.getParameter("data");
-        HttpSession session = req.getSession();
         User currentUser = (User) session.getAttribute("user");
-        profileController.updateUserProfile(currentUser, dataType, input);
-        User modifiedUser = (User) queryManager.selectUserByEmail(currentUser.getEmail()).get(0);
+        updateUserProfile(currentUser, dataType, input);
+
+        User modifiedUser = userService.getUserByEmail(currentUser.getEmail());
         session.setAttribute("user", modifiedUser);
+
     }
 
+    private void updateUserProfile(User currentUser, String dataType, String input) {
+        User user = userService.getUserByEmail(currentUser.getEmail());
+        Address address = user.getAddress();
+
+        switch (dataType) {
+            case "name":
+                userService.updateUserName(user, input);
+                break;
+            case "country":
+                addressService.updateCountry(address, input);
+                break;
+            case "city":
+                addressService.updateCity(address, input);
+                break;
+            case "zipCode":
+                addressService.updateZip(address, input);
+                break;
+            case "street":
+                addressService.updateStreet(address, input);
+                break;
+            case "houseNumber":
+                addressService.updateHouseNumber(address, input);
+                break;
+            case "phoneNumber":
+                userService.updatePhoneNumber(user, input);
+                break;
+            case "idCardNum":
+                userService.updateIdCardNum(user, input);
+                break;
+        }
+    }
 }

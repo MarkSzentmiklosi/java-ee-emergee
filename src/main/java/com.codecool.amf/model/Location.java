@@ -23,7 +23,7 @@ public class Location {
     private String houseNum;
 
     @OneToOne(mappedBy = "location")
-    private HRequest request;
+    private HelpRequest request;
 
 
     public Location() {

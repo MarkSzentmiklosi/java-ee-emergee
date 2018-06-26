@@ -1,7 +1,8 @@
 package com.codecool.amf;
 
-import com.codecool.amf.model.HRequest;
+import com.codecool.amf.model.HelpRequest;
 import org.apache.commons.lang3.text.StrSubstitutor;
+import org.springframework.stereotype.Component;
 
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
@@ -12,11 +13,12 @@ import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+@Component
 public class EmailSender {
-    static final Logger logger = Logger.getLogger(EmailSender.class+"");
+
+    Logger logger = Logger.getLogger(EmailSender.class+"");
 
     public void send(String to, String sub, String msg, String service) throws javax.mail.MessagingException {
         //Get properties object
@@ -46,7 +48,7 @@ public class EmailSender {
 
     }
 
-    public String createMsg(HRequest hRequest) {
+    public String createMsg(HelpRequest helpRequest) {
         String template = "Dear ${partnerName},\n" +
                 "\n" +
                 "We have a new request for you.\n\n" +
@@ -57,16 +59,16 @@ public class EmailSender {
                 "AMF Team";
 
         Map<String, String> data = new HashMap<String, String>();
-        data.put("partnerName", hRequest.getPartner().getName());
-        data.put("clientName", hRequest.getUser().getName());
-        data.put("location", hRequest.getLocationLabel());
-        data.put("clientPhone", hRequest.getUser().getPhoneNumber());
+        data.put("partnerName", helpRequest.getPartner().getName());
+        data.put("clientName", helpRequest.getUser().getName());
+        data.put("location", helpRequest.getLocationLabel());
+        data.put("clientPhone", helpRequest.getUser().getPhoneNumber());
 
         String formattedMsg = StrSubstitutor.replace(template, data);
 
         return formattedMsg;
     }
-    public String createConfirmationMessage(HRequest hRequest) {
+    public String createConfirmationMessage(HelpRequest helpRequest) {
         String template = "Dear ${userName},\n" +
                 "\n" +
                 "We would like to let you know that we notified our partner.\n\n" +
@@ -75,8 +77,8 @@ public class EmailSender {
                 "AMF Team";
 
         Map<String, String> data = new HashMap<String, String>();
-        data.put("userName", hRequest.getUser().getName());
-        data.put("partnerName", hRequest.getPartner().getName());
+        data.put("userName", helpRequest.getUser().getName());
+        data.put("partnerName", helpRequest.getPartner().getName());
 
         String formattedMsg = StrSubstitutor.replace(template, data);
 

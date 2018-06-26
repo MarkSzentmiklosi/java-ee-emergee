@@ -1,27 +1,21 @@
 package com.codecool.amf.route_handler;
 
-import com.codecool.amf.config.TemplateEngineUtil;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.WebContext;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
-public class Index extends HttpServlet {
+@Controller
+public class Index {
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String renderIndex(HttpSession session) {
         if (session.getAttribute("user") == null) {
-            resp.sendRedirect("/login");
+            return "login";
         } else {
-            TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-            WebContext context = new WebContext(req, resp, req.getServletContext());
-            engine.process("index.html", context, resp.getWriter());
+            return "index";
         }
     }
+
 }

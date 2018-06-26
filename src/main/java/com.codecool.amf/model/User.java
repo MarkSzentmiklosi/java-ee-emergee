@@ -27,7 +27,7 @@ public class User {
     private Address address;
 
     @OneToMany(mappedBy = "user")
-    private List<HRequest> requests = new ArrayList<>();
+    private List<HelpRequest> requests = new ArrayList<>();
 
     @Column(name = "password")
     private String passwordHash;
@@ -44,7 +44,16 @@ public class User {
         this.address = address;
     }
 
-    public void addRequest(HRequest request) {
+    public User(String name, String email, String phoneNumber, String idCardNum, Address address, String passwordHash) {
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.idCardNum = idCardNum;
+        this.address = address;
+        this.passwordHash = passwordHash;
+    }
+
+    public void addRequest(HelpRequest request) {
         requests.add(request);
     }
 
@@ -56,23 +65,43 @@ public class User {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getEmail() {
         return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     public String getIdCardNum() {
         return idCardNum;
+    }
+
+    public void setIdCardNum(String idCardNum) {
+        this.idCardNum = idCardNum;
     }
 
     public Address getAddress() {
         return address;
     }
 
-    public List<HRequest> getRequests() {
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public List<HelpRequest> getRequests() {
         return requests;
     }
 
@@ -80,28 +109,7 @@ public class User {
         return passwordHash;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setIdCardNum(String idCardNum) {
-        this.idCardNum = idCardNum;
-    }
-
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
-    }
-
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
 }
