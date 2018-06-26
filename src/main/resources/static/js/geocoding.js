@@ -12,8 +12,6 @@ $('.servicesHref').on('click touchend', function () {
     touchmoved = false;
 });
 
-$(".servicesHref").click(getLocation);
-
 function getLocation() {
 
     if (navigator.geolocation) {

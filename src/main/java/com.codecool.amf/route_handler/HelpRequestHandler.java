@@ -3,8 +3,8 @@ package com.codecool.amf.route_handler;
 import com.codecool.amf.EmailSender;
 import com.codecool.amf.model.HelpRequest;
 import com.codecool.amf.model.Location;
-import com.codecool.amf.model.ServiceType;
 import com.codecool.amf.model.Partner;
+import com.codecool.amf.model.ServiceType;
 import com.codecool.amf.model.User;
 import com.codecool.amf.service.HelpRequestService;
 import com.codecool.amf.service.PartnerService;
@@ -56,7 +56,7 @@ public class HelpRequestHandler {
         notifyPartner(requestedServiceType, helpRequest);
         sendConfirmationForUser(requestedServiceType, helpRequest);
 
-        return "success";
+        return "{\"status\": \"OK\" }";
     }
 
     private void sendConfirmationForUser(String serviceType, HelpRequest helpRequest) {
