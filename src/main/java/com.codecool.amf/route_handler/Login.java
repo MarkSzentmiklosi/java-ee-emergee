@@ -14,7 +14,7 @@ public class Login {
     public String login(HttpSession session, Model model) {
 
         if (session.getAttribute("user") != null) {
-            return "index";
+            return "redirect:/";
         } else {
             model.addAttribute("error", false);
             return "login";
@@ -23,6 +23,6 @@ public class Login {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login2(HttpSession session, Model model) {
-        return "index";
+        return "redirect:/";
     }
 }
