@@ -113,6 +113,8 @@ public class AuthService {
         User newUser = new User(email, passwordService.hashPassword(password));
         session.setAttribute("user", newUser);
 
+        userService.saveUser(newUser);
+
         return "update-profile";
     }
 
