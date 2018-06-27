@@ -1,18 +1,14 @@
 package com.codecool.amf.service;
 
+import com.codecool.amf.GoogleConfig.IdTokenVerifierAndParser;
 import com.codecool.amf.model.User;
-import com.codecool.amf.route_handler.IdTokenVerifierAndParser;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpSession;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @Service
 public class AuthService {
@@ -20,9 +16,12 @@ public class AuthService {
     @Autowired
     UserService userService;
 
+    @Autowired
+    IdTokenVerifierAndParser idTokenVerifierAndParser;
+
     public String handleRedirectGoogleUserPost(HttpSession session, String idToken) {
         try {
-            GoogleIdToken.Payload payLoad = IdTokenVerifierAndParser.getPayload(idToken);
+            GoogleIdToken.Payload payLoad = idTokenVerifierAndParser.getPayload(idToken);
 
             if (isUserExist(session, payLoad)) {
                 return "redirect:/";

@@ -1,14 +1,15 @@
 package com.codecool.amf.service;
 
-import com.codecool.amf.EmailSender;
-import com.codecool.amf.model.*;
+import com.codecool.amf.model.HelpRequest;
+import com.codecool.amf.model.Location;
+import com.codecool.amf.model.Partner;
+import com.codecool.amf.model.ServiceType;
+import com.codecool.amf.model.User;
 import com.codecool.amf.repository.HelpRequestRepository;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 
@@ -19,7 +20,7 @@ public class HelpRequestService {
     @Autowired
     HelpRequestRepository helpRequestRepository;
     @Autowired
-    private EmailSender emailSender;
+    private EmailService emailService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -30,7 +31,7 @@ public class HelpRequestService {
         helpRequestRepository.save(helpRequest);
     }
 
-    public String handleHelpRequestPost(@RequestBody String json, HttpSession session) {
+    public String handleHelpRequestPost(String json, HttpSession session) {
         JSONObject requestJSON = new JSONObject(json);
         JSONObject serviceJson = (JSONObject) requestJSON.get("service_type");
         String requestedServiceType = serviceJson.getString("service");
@@ -48,38 +49,12 @@ public class HelpRequestService {
 
         saveHelpRequest(helpRequest);
 
-        notifyPartner(requestedServiceType, helpRequest);
-        sendConfirmationForUser(requestedServiceType, helpRequest);
+        emailService.notifyPartner(requestedServiceType, helpRequest);
+        emailService.sendConfirmationForUser(requestedServiceType, helpRequest);
 
         return "{\"status\": \"OK\" }";
     }
 
-    private void sendConfirmationForUser(String serviceType, HelpRequest helpRequest) {
-        String message = emailSender.createConfirmationMessage(helpRequest);
-        try {
-            String subject = "Request " + helpRequest.getCreationDate() + " confirmation";
-            String userEmail = helpRequest.getUser().getEmail();
-            emailSender.send(userEmail, subject, message, serviceType);
-
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void notifyPartner(String service, HelpRequest helpRequest) {
-        String msg = emailSender.createMsg(helpRequest);
-
-        try {
-            String subject = "Request " + helpRequest.getCreationDate();
-            String partnerEmail = helpRequest.getPartner().getEmail();
-            String serviceType = service;
-
-            emailSender.send(partnerEmail, subject, msg, serviceType);
-
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
-    }
 
     private ServiceType getPService(String typeOfService) {
         ServiceType service = null;
