@@ -1,13 +1,7 @@
 package com.codecool.amf.service;
 
-import com.codecool.amf.model.Address;
-import com.codecool.amf.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpSession;
-import java.util.Map;
 import com.codecool.amf.GoogleConfig.IdTokenVerifierAndParser;
+import com.codecool.amf.model.Address;
 import com.codecool.amf.model.User;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -28,6 +23,9 @@ public class AuthService {
 
     @Autowired
     IdTokenVerifierAndParser idTokenVerifierAndParser;
+
+    @Autowired
+    AddressService addressService;
 
     public String handleRedirectGoogleUserPost(HttpSession session, String idToken) {
         try {
@@ -62,8 +60,13 @@ public class AuthService {
 
         String name = (String) payLoad.get("name");
         String email = payLoad.getEmail();
-        session.setAttribute("userName", name);
-        session.setAttribute("email", email);
+
+        User user = new User();
+        user.setName(name);
+        user.setEmail(email);
+        userService.saveUser(user);
+
+        session.setAttribute("user", user);
 
         return "update-profile";
     }
@@ -104,8 +107,7 @@ public class AuthService {
 
     private boolean isPasswordMatch(String inputPassword, String userPassword) {
         return passwordService.checkPassword(inputPassword, userPassword);
-    @Autowired
-    AddressService addressService;
+    }
 
     public String handleRegistrationPost(HttpSession session, String email, String password) {
         User newUser = new User(email, passwordService.hashPassword(password));
@@ -126,7 +128,7 @@ public class AuthService {
         Optional<Address> address = Optional.ofNullable(addressService.getHomeAddress(country, city, zipCode, street, houseNum));
 
         if (!address.isPresent()) {
-            user.setAddress(new Address(country,city,zipCode,street,houseNum));
+            user.setAddress(new Address(country, city, zipCode, street, houseNum));
         } else {
             user.setAddress(address.get());
         }
