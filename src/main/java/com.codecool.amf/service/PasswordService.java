@@ -1,11 +1,13 @@
-package com.codecool.amf.authenticator;
+package com.codecool.amf.service;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import static org.mindrot.jbcrypt.BCrypt.*;
+import static org.mindrot.jbcrypt.BCrypt.checkpw;
+import static org.mindrot.jbcrypt.BCrypt.gensalt;
+import static org.mindrot.jbcrypt.BCrypt.hashpw;
 
-@Component
-public class AuthenticationManager {
+@Service
+public class PasswordService {
 
     private static int workload = 12;
 
@@ -26,5 +28,4 @@ public class AuthenticationManager {
 
         return (password_verified);
     }
-
 }

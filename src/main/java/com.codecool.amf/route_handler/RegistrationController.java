@@ -1,6 +1,9 @@
 package com.codecool.amf.route_handler;
 
+import com.codecool.amf.service.AuthService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -8,16 +11,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class Registration {
+public class RegistrationController {
 
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registartion(HttpSession session,
+    @Autowired
+    AuthService authService;
+
+    @PostMapping("/registration")
+    public String registration(HttpSession session,
                                @RequestParam(name = "registration_email") String email,
                                @RequestParam(name = "registration_password") String password) {
 
-        session.setAttribute("password", password);
-        session.setAttribute("email", email);
-        return "update-profile";
+        return authService.handleRegistrationPost(session,email,password);
     }
 
 }
