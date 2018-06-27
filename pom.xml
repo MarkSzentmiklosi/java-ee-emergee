@@ -111,6 +111,19 @@
             <artifactId>nekohtml</artifactId>
             <version>1.9.21</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.0.2</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
