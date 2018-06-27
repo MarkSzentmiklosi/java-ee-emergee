@@ -1,6 +1,5 @@
 package com.codecool.amf.route_handler;
 
-import com.codecool.amf.model.User;
 import com.codecool.amf.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,11 +20,7 @@ public class SaveProfileSettings extends HttpServlet {
                                     @RequestParam(name = "dataType") String dataType,
                                     @RequestParam(name = "data") String input) {
 
-        User currentUser = (User) session.getAttribute("user");
-        userService.updateUserProfile(currentUser, dataType, input);
-        User modifiedUser = userService.getUserByEmail(currentUser.getEmail());
-
-        session.setAttribute("user", modifiedUser);
+        userService.handleSaveProfileSettingsPost(session, dataType, input);
 
     }
 }

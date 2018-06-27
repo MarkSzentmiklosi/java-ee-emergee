@@ -6,6 +6,8 @@ import com.codecool.amf.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
+
 @Service
 public class UserService {
 
@@ -68,5 +70,13 @@ public class UserService {
                 updateIdCardNum(user, input);
                 break;
         }
+    }
+
+    public void handleSaveProfileSettingsPost(HttpSession session, String dataType, String input) {
+        User currentUser = (User) session.getAttribute("user");
+        updateUserProfile(currentUser, dataType, input);
+        User modifiedUser = getUserByEmail(currentUser.getEmail());
+
+        session.setAttribute("user", modifiedUser);
     }
 }
