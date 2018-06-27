@@ -1,28 +1,28 @@
 package com.codecool.amf.route_handler;
 
+import com.codecool.amf.service.AuthService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
 
 @Controller
 public class Login {
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(HttpSession session, Model model) {
+    @Autowired
+    AuthService authService;
 
-        if (session.getAttribute("user") != null) {
-            return "redirect:/";
-        } else {
-            model.addAttribute("error", false);
-            return "login";
-        }
+    @GetMapping(value = "/login")
+    public String loginGet(HttpSession session, Model model) {
+
+        return authService.handleLoginGet(session, model);
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login2(HttpSession session, Model model) {
+    @PostMapping(value = "/login")
+    public String loginPost() {
         return "redirect:/";
     }
 }

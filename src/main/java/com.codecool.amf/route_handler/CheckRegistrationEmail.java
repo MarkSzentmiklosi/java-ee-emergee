@@ -1,25 +1,21 @@
 package com.codecool.amf.route_handler;
 
-import com.codecool.amf.service.UserService;
+import com.codecool.amf.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-public class CheckRegistrationEmail{
+public class CheckRegistrationEmail {
 
     @Autowired
-    UserService userService;
+    AuthService authService;
 
-    @RequestMapping(value = "/check_registration_email",method = RequestMethod.POST)
+    @PostMapping(value = "/check_registration_email")
     public String checkEmail(@RequestParam(name = "email") String email) {
-        String response = "newEmail";
-
-        if (userService.getUserByEmail(email) != null) {
-            response = "existingEmail";
-        }
-        return response;
+        return authService.handleCheckRegistrationEmailPost(email);
     }
 }
 
