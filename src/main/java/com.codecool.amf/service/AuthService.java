@@ -27,46 +27,35 @@ public class AuthService {
     @Autowired
     AddressService addressService;
 
-    public String handleRedirectGoogleUserPost(HttpSession session, String idToken) {
+    public String handleRedirectGoogleUserPost(String idToken, Model model) {
         try {
             GoogleIdToken.Payload payLoad = idTokenVerifierAndParser.getPayload(idToken);
+            String email = payLoad.getEmail();
+            String name = (String) payLoad.get("name");
+            Optional<User> user = Optional.ofNullable(userService.getUserByEmail(email));
 
-            if (isUserExist(session, payLoad)) {
-                return "redirect:/";
-            } else {
-                return signUpGoogleUser(session, payLoad);
+            if (!user.isPresent()) {
+                return signUpGoogleUser(email, name, model);
             }
 
+            if (user.isPresent() && user.get().getAddress() == null) {
+                model.addAttribute("user", user.get());
+                return "update-profile";
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
-        }
-    }
-
-    private boolean isUserExist(HttpSession session, GoogleIdToken.Payload payLoad) {
-
-        String email = payLoad.getEmail();
-        Optional<User> loginUser = Optional.ofNullable(userService.getUserByEmail(email));
-
-        if (loginUser.isPresent()) {
-            session.setAttribute("user", loginUser.get());
-            return true;
         }
 
-        return false;
+        return "redirect:/";
     }
 
-    private String signUpGoogleUser(HttpSession session, GoogleIdToken.Payload payLoad) {
-
-        String name = (String) payLoad.get("name");
-        String email = payLoad.getEmail();
-
+    private String signUpGoogleUser(String email, String name, Model model) {
         User user = new User();
         user.setName(name);
         user.setEmail(email);
         userService.saveUser(user);
 
-        session.setAttribute("user", user);
+        model.addAttribute("user", user);
 
         return "update-profile";
     }
@@ -112,6 +101,8 @@ public class AuthService {
     public String handleRegistrationPost(HttpSession session, String email, String password) {
         User newUser = new User(email, passwordService.hashPassword(password));
         session.setAttribute("user", newUser);
+
+        userService.saveUser(newUser);
 
         return "update-profile";
     }
