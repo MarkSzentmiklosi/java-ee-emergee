@@ -48,7 +48,7 @@ public class AuthService {
         String email = payLoad.getEmail();
         Optional<User> loginUser = Optional.ofNullable(userService.getUserByEmail(email));
 
-        if (loginUser.isPresent()) {
+        if (loginUser.isPresent() && loginUser.get().getAddress() != null) {
             session.setAttribute("user", loginUser.get());
             return true;
         }
