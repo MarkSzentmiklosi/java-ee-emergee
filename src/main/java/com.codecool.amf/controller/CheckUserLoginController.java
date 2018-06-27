@@ -1,4 +1,4 @@
-package com.codecool.amf.route_handler;
+package com.codecool.amf.controller;
 
 import com.codecool.amf.service.AuthService;
 import com.codecool.amf.service.UserService;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpSession;
 
 @RestController
-public class CheckUserLogin {
+public class CheckUserLoginController {
 
     @Autowired
     AuthService authManager;

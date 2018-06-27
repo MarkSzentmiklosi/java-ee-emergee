@@ -1,4 +1,4 @@
-package com.codecool.amf.route_handler;
+package com.codecool.amf.controller;
 
 import com.codecool.amf.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 
 @RestController
-public class SaveProfileSettings extends HttpServlet {
+public class SaveProfileSettingsController extends HttpServlet {
 
     @Autowired
     UserService userService;

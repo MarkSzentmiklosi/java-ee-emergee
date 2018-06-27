@@ -1,4 +1,4 @@
-package com.codecool.amf.route_handler;
+package com.codecool.amf.controller;
 
 import com.codecool.amf.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;

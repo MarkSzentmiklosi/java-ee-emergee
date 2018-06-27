@@ -1,4 +1,4 @@
-package com.codecool.amf.route_handler;
+package com.codecool.amf.controller;
 
 import com.codecool.amf.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class Login {
+public class LoginController {
 
     @Autowired
     AuthService authService;
