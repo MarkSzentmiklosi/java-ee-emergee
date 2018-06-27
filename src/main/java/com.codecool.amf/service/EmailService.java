@@ -1,13 +1,10 @@
-package com.codecool.amf;
+package com.codecool.amf.service;
 
 import com.codecool.amf.model.HelpRequest;
 import org.apache.commons.lang3.text.StrSubstitutor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import javax.mail.Message;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
@@ -15,12 +12,12 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Logger;
 
-@Component
-public class EmailSender {
+@Service
+public class EmailService {
 
-    Logger logger = Logger.getLogger(EmailSender.class+"");
+    Logger logger = Logger.getLogger(EmailService.class + "");
 
-    public void send(String to, String sub, String msg, String service) throws javax.mail.MessagingException {
+    private void send(String to, String sub, String msg, String service) throws javax.mail.MessagingException {
         //Get properties object
         String from = "amf.emergee@gmail.com";
         String password = "amfemergee123";
@@ -48,7 +45,7 @@ public class EmailSender {
 
     }
 
-    public String createMsg(HelpRequest helpRequest) {
+    private String createMsg(HelpRequest helpRequest) {
         String template = "Dear ${partnerName},\n" +
                 "\n" +
                 "We have a new request for you.\n\n" +
@@ -68,7 +65,8 @@ public class EmailSender {
 
         return formattedMsg;
     }
-    public String createConfirmationMessage(HelpRequest helpRequest) {
+
+    private String createConfirmationMessage(HelpRequest helpRequest) {
         String template = "Dear ${userName},\n" +
                 "\n" +
                 "We would like to let you know that we notified our partner.\n\n" +
@@ -83,5 +81,32 @@ public class EmailSender {
         String formattedMsg = StrSubstitutor.replace(template, data);
 
         return formattedMsg;
+    }
+
+    public void sendConfirmationForUser(String serviceType, HelpRequest helpRequest) {
+        String message = createConfirmationMessage(helpRequest);
+        try {
+            String subject = "Request " + helpRequest.getCreationDate() + " confirmation";
+            String userEmail = helpRequest.getUser().getEmail();
+            send(userEmail, subject, message, serviceType);
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void notifyPartner(String service, HelpRequest helpRequest) {
+        String msg = createMsg(helpRequest);
+
+        try {
+            String subject = "Request " + helpRequest.getCreationDate();
+            String partnerEmail = helpRequest.getPartner().getEmail();
+            String serviceType = service;
+
+            send(partnerEmail, subject, msg, serviceType);
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 }

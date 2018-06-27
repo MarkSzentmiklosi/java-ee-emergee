@@ -53,6 +53,12 @@ public class User {
         this.passwordHash = passwordHash;
     }
 
+    public User(String email, String password) {
+
+        this.email = email;
+        this.passwordHash = password;
+    }
+
     public void addRequest(HelpRequest request) {
         requests.add(request);
     }

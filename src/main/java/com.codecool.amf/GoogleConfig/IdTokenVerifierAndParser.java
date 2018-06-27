@@ -1,14 +1,16 @@
-package com.codecool.amf.route_handler;
+package com.codecool.amf.GoogleConfig;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson.JacksonFactory;
+import org.springframework.stereotype.Component;
 
+@Component
 public class IdTokenVerifierAndParser {
-    private static final String GOOGLE_CLIENT_ID = "937806585060-f0cgf0ipskqbj73qktojang6oblu8n2e.apps.googleusercontent.com";
+    private final String GOOGLE_CLIENT_ID = "937806585060-f0cgf0ipskqbj73qktojang6oblu8n2e.apps.googleusercontent.com";
 
-    public static GoogleIdToken.Payload getPayload(String tokenString) throws Exception {
+    public GoogleIdToken.Payload getPayload(String tokenString) throws Exception {
 
         JacksonFactory jacksonFactory = new JacksonFactory();
         GoogleIdTokenVerifier googleIdTokenVerifier =
