@@ -1,5 +1,7 @@
 var service;
 var touchmoved;
+var stompClient = null;
+
 
 $('.servicesHref').on('click touchend', function () {
     if (touchmoved != true) {
@@ -46,8 +48,17 @@ function handleJSON(json) {
             data: JSON.stringify(data),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
-            success: function () {
+            success: function (response) {
+                var socket = new SockJS('/emergee');
+                stompClient = Stomp.over(socket);
+                stompClient.connect({}, function (frame) {
+                    console.log('Connected: ' + frame);
+                    stompClient.send("/notifyPartner", {}, response["requestId"]);
+                });
+
+
                 alert("We notified the suitable partner.")
+
             }
         });
 
