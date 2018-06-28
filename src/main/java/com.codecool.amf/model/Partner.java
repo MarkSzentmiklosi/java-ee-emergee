@@ -16,6 +16,8 @@ public class Partner {
 
     private String email;
 
+    private String password;
+
     @Enumerated
     private ServiceType service;
 
@@ -32,11 +34,24 @@ public class Partner {
         this.service = service;
     }
 
+    public Partner(String name, String email, ServiceType service, String password) {
+        this(name, email, service);
+        this.password = password;
+    }
+
     public String getName() {
         return name;
     }
 
     public String getEmail() {
         return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public int getId() {
+        return id;
     }
 }

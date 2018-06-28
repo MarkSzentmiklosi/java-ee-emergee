@@ -2,6 +2,7 @@ package com.codecool.amf.service;
 
 import com.codecool.amf.GoogleConfig.IdTokenVerifierAndParser;
 import com.codecool.amf.model.Address;
+import com.codecool.amf.model.Partner;
 import com.codecool.amf.model.User;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class AuthService {
 
     @Autowired
     AddressService addressService;
+
+    @Autowired
+    PartnerService partnerService;
 
     public String handleRedirectGoogleUserPost(String idToken, Model model) {
         try {
@@ -131,5 +135,15 @@ public class AuthService {
         session.setAttribute("user", user);
 
         return "redirect:/";
+    }
+
+    public String handlePartnerLoginPost(String email, String password, HttpSession session) {
+        Partner partner = partnerService.selectPartnerByEmail(email);
+
+        if (passwordService.checkPassword(password, partner.getPassword())) {
+            session.setAttribute("partnerId", partner.getId());
+            return "redirect:/partner";
+        }
+        return "redirect:/partner-login";
     }
 }

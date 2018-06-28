@@ -36,7 +36,7 @@ public class EmergeeApp {
             addressService.saveAddress(address1);
             addressService.saveAddress(address2);
 
-            partnerService.savePartner(new Partner("Orszagos Mentoszolgalat", "bollaferenc@gmail.com", ServiceType.AMBULANCE));
+            partnerService.savePartner(new Partner("Orszagos Mentoszolgalat", "koroknayakos@gmail.com", ServiceType.AMBULANCE, "$2a$12$Stq5xqnL22Ngql7rXeqdLuWE9DjVG9L4VplKObiAKU9h/SI3BJ4Zi"));
             partnerService.savePartner(new Partner("Budapesti Rendor-fokapitanysag", "bollaferenc@gmail.com", ServiceType.POLICE));
             partnerService.savePartner(new Partner("XIII. keruleti Tuzoltosagi Parancsnoksag", "bollaferenc@gmail.com", ServiceType.FIRE));
             partnerService.savePartner(new Partner("Magyarorszagi Automento Szolgalat", "bollaferenc@gmail.com", ServiceType.CAR_REPAIR));

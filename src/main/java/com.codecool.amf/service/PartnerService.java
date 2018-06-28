@@ -6,6 +6,8 @@ import com.codecool.amf.repository.PartnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
+
 @Service
 public class PartnerService {
 
@@ -16,7 +18,18 @@ public class PartnerService {
         return partnerRepository.findByService(serviceType);
     }
 
+    public Partner selectPartnerByEmail(String email) {
+        return partnerRepository.findByEmail(email);
+    }
+
     public void savePartner(Partner partner) {
         partnerRepository.save(partner);
+    }
+
+    public String handleIndexGet(HttpSession session) {
+        if (session.getAttribute("partnerId") == null) {
+            return "redirect:/partner-login";
+        }
+        return "partner_index";
     }
 }
