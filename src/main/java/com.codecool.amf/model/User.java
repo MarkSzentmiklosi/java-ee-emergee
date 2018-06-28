@@ -10,7 +10,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     private String name;
 
@@ -63,7 +63,7 @@ public class User {
         requests.add(request);
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

@@ -9,7 +9,7 @@ public class HelpRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     private boolean active = true;
 
@@ -28,7 +28,6 @@ public class HelpRequest {
     @ManyToOne(cascade = CascadeType.MERGE)
     private User user;
 
-    @Transient
     private String locationLabel;
 
 
@@ -64,6 +63,10 @@ public class HelpRequest {
 
     public String getLocationLabel() {
         return locationLabel;
+    }
+
+    public long getId() {
+        return id;
     }
 }
 

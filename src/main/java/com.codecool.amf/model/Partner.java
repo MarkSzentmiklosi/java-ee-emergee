@@ -10,7 +10,7 @@ public class Partner {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     private String name;
 
@@ -38,5 +38,9 @@ public class Partner {
 
     public String getEmail() {
         return email;
+    }
+
+    public long getId() {
+        return id;
     }
 }
