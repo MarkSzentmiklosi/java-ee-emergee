@@ -16,8 +16,12 @@ function connect() {
 }
 
 function displayRequest(parsedHelpRequest) {
-    $(".requests").append("<tr><td>" + parsedHelpRequest['partner_id'] + "</td></tr>" +
-        "<tr><td>" + parsedHelpRequest['user_name'] + "</td></tr>");
+    $(".requests")
+        .append(
+            "<tr><td>" + parsedHelpRequest['partner_id'] + "</td></tr>" +
+            "<tr><td>" + parsedHelpRequest['user_name'] + "</td></tr>" +
+            "<tr><td>" + parsedHelpRequest['request_location'] + "</td></tr>"
+        );
 }
 
 $(document).ready(function () {
