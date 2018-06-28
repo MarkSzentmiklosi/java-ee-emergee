@@ -3,7 +3,9 @@ var touchmoved;
 var stompClient = null;
 
 
-$('.servicesHref').on('click touchend', function () {
+$('.servicesHref').on('touchend click', function (event) {
+    event.stopPropagation();
+    event.preventDefault();
     if (touchmoved != true) {
         service = $(this).data("service");
         getLocation();
