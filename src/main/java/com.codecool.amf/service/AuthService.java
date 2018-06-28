@@ -27,34 +27,39 @@ public class AuthService {
     @Autowired
     AddressService addressService;
 
-    public String handleRedirectGoogleUserPost(String idToken, Model model) {
+    public String handleRedirectGoogleUserPost(String idToken, Model model, HttpSession session) {
         try {
             GoogleIdToken.Payload payLoad = idTokenVerifierAndParser.getPayload(idToken);
             String email = payLoad.getEmail();
             String name = (String) payLoad.get("name");
             Optional<User> user = Optional.ofNullable(userService.getUserByEmail(email));
 
+
             if (!user.isPresent()) {
-                return signUpGoogleUser(email, name, model);
+                return signUpGoogleUser(email, name, model, session);
             }
 
             if (user.isPresent() && user.get().getAddress() == null) {
                 model.addAttribute("user", user.get());
+                session.setAttribute("user", user.get());
                 return "update-profile";
             }
+            session.setAttribute("user", user.get());
+            return "redirect:/";
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return "redirect:/";
+        return null;
     }
 
-    private String signUpGoogleUser(String email, String name, Model model) {
+    private String signUpGoogleUser(String email, String name, Model model, HttpSession session) {
         User user = new User();
         user.setName(name);
         user.setEmail(email);
         userService.saveUser(user);
 
+        session.setAttribute("user", user);
         model.addAttribute("user", user);
 
         return "update-profile";
@@ -82,7 +87,7 @@ public class AuthService {
         String response = "invalid";
 
         User user = userService.getUserByEmail(email);
-        if (user != null) {
+        if (user != null && user.getAddress() != null) {
             String savedPassword = user.getPasswordHash();
             if (isPasswordMatch(password, savedPassword)) {
                 session.setAttribute("user", user);
@@ -98,9 +103,11 @@ public class AuthService {
         return passwordService.checkPassword(inputPassword, userPassword);
     }
 
-    public String handleRegistrationPost(HttpSession session, String email, String password) {
+    public String handleRegistrationPost(HttpSession session, String email, String password, Model model) {
         User newUser = new User(email, passwordService.hashPassword(password));
         session.setAttribute("user", newUser);
+        model.addAttribute("user", newUser);
+
 
         userService.saveUser(newUser);
 
@@ -130,6 +137,11 @@ public class AuthService {
         userService.saveUser(user);
         session.setAttribute("user", user);
 
+        return "redirect:/";
+    }
+
+    public String handleLoginPost(String email, HttpSession session) {
+        session.setAttribute("user", userService.getUserByEmail(email));
         return "redirect:/";
     }
 }

@@ -17,9 +17,10 @@ public class GoogleLoginController {
 
     @PostMapping(value = "/glogin")
     public String redirectGoogleUser(@RequestParam(name = "id_token") String idToken,
-                                     Model model) {
+                                     Model model,
+                                     HttpSession session) {
 
-        return authService.handleRedirectGoogleUserPost(idToken, model);
+        return authService.handleRedirectGoogleUserPost(idToken, model, session);
     }
 
 }
