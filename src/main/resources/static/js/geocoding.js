@@ -3,8 +3,12 @@ var touchmoved;
 var stompClient = null;
 
 
-$('.servicesHref').on('click touchend', function () {
-    if (touchmoved != true) {
+$('.servicesHref').on('touchend click', function (event) {
+    event.stopPropagation();
+    event.preventDefault();
+    service = $(this).data("service");
+    getLocation();
+    /*if (touchmoved != true) {
         service = $(this).data("service");
         getLocation();
     }
@@ -12,7 +16,8 @@ $('.servicesHref').on('click touchend', function () {
     touchmoved = true;
 }).on('touchstart', function () {
     touchmoved = false;
-});
+});*/
+}
 
 function getLocation() {
 
