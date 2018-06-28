@@ -18,9 +18,20 @@ function connect() {
 function displayRequest(parsedHelpRequest) {
     $(".requests")
         .append(
-            "<tr><td>" + parsedHelpRequest['partner_id'] + "</td></tr>" +
-            "<tr><td>" + parsedHelpRequest['user_name'] + "</td></tr>" +
-            "<tr><td>" + parsedHelpRequest['request_location'] + "</td></tr>"
+            "<div class=\"single-products-catagory clearfix \">" +
+            "<a class=\"partner-page\" href=\"#\">" +
+            "<div class=\"img-container\">" +
+            "<img src=\"/img/simple.png\" alt=\"\">" +
+            "</div>" +
+            "<div class=\"hover-content\">" +
+            "<div class=\"line\"></div>" +
+            "<h4>" + parsedHelpRequest['request_location'] + "</h4>" +
+            "<h6>" + parsedHelpRequest['creationDate'] + "</h6>" +
+            "<h6>" + parsedHelpRequest['user_name'] + "</h6>" +
+            "<h6>" + parsedHelpRequest['user_phone_number'] + "</h6>" +
+            "</div>" +
+            "</a>" +
+            "</div>"
         );
 }
 
