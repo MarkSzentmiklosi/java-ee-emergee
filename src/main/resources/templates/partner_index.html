@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="">
@@ -77,8 +77,28 @@
     <!-- Product Catagories Area Start -->
     <div class="products-catagories-area clearfix">
         <div class="amado-pro-catagory clearfix">
+            <!--<tr th:each="data, iterstat: ${requests}">-->
+            <!--<td th:text="${data}" th:id="|td${iterstat.index}|"></td>-->
+            <!--</tr>-->
+            <tr th:each="data, iterstat: ${requests}">
+                <div class="single-products-catagory clearfix ">
+                    <a class="partner-page" href="#">
+                        <div class="img-container">
+                            <img src="/img/simple.png" alt="">
+                        </div>
+                        <!-- Hover Content -->
+                        <div class="hover-content">
+                            <div class="line"></div>
+                            <h4 th:text="${data.locationLabel}" th:id="|td${iterstat.index}|">Location</h4>
+                            <h6 th:text="${data.creationDate}">Date</h6>
+                            <h6 th:text="${data.user.name}">User</h6>
+                            <h6 th:text="${data.user.phoneNumber}">User number</h6>
+                        </div>
+                    </a>
+                </div>
+            </tr>
             <div class="requests">
-                
+
             </div>
         </div>
     </div>
