@@ -17,7 +17,7 @@ $('.servicesHref').on('touchend click', function (event) {
 }).on('touchstart', function () {
     touchmoved = false;
 });*/
-}
+});
 
 function getLocation() {
 
