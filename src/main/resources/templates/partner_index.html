@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="">
@@ -67,7 +67,7 @@
         <!-- Amado Nav -->
         <nav class="amado-nav">
             <ul>
-                <li class="active"><a href="/">Home</a></li>
+                <li class="active"><a href="/partner">Home</a></li>
             </ul>
         </nav>
 
@@ -80,43 +80,56 @@
     <!-- Product Catagories Area Start -->
     <div class="products-catagories-area clearfix">
         <div class="amado-pro-catagory clearfix">
+            <!--<tr th:each="data, iterstat: ${requests}">-->
+            <!--<td th:text="${data}" th:id="|td${iterstat.index}|"></td>-->
+            <!--</tr>-->
+            <tr th:each="data, iterstat: ${requests}">
+                <div class="single-products-catagory clearfix ">
+                    <a class="partner-page" href="#">
+                        <div class="img-container">
+                            <img src="/img/simple.png" alt="">
+                        </div>
+                        <!-- Hover Content -->
+                        <div class="hover-content">
+                            <div class="line"></div>
+                            <h4 th:text="${data.locationLabel}" th:id="|td${iterstat.index}|">Location</h4>
+                            <h6 th:text="${data.creationDate}">Date</h6>
+                            <h6 th:text="${data.user.name}">User</h6>
+                            <h6 th:text="${data.user.phoneNumber}">User number</h6>
+                        </div>
+                    </a>
+                </div>
+            </tr>
             <div class="requests">
-                <button id="launchMap" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                    Location 1
-                </button>
-                <p id="address">Budapest Lonyay utca 20</p>
+
             </div>
         </div>
     </div>
 </div>
-<div class="page-container">
+<!-- ##### Main Content Wrapper End ##### -->
+
+<!-- ##### Footer Area Start ##### -->
+<footer class="footer_area clearfix">
     <div class="container">
-        <br/>
-        <!-- ##### Main Content Wrapper End ##### -->
-
-
-        <!-- ##### Footer Area Start ##### -->
-        <footer class="footer_area clearfix">
-            <div class="container">
-                <div class="row align-items-center">
-                    <!-- Single Widget Area -->
-                    <div class="col-12 col-lg-4">
-                        <div class="single_widget_area">
-                            <!-- Logo -->
-                            <div class="footer-logo footer-logo-img mr-50">
-                                <a href="/"><img src="/img/amf-white.png" alt=""></a>
-                            </div>
-                            <!-- Copywrite Text -->
-                            <p class="copywrite">
-                                Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                                All rights reserved
-                            </p>
-                        </div>
+        <div class="row align-items-center">
+            <!-- Single Widget Area -->
+            <div class="col-12 col-lg-4">
+                <div class="single_widget_area">
+                    <!-- Logo -->
+                    <div class="footer-logo footer-logo-img mr-50">
+                        <a href="/"><img src="/img/amf-white.png" alt=""></a>
                     </div>
+                    <!-- Copywrite Text -->
+                    <p class="copywrite">
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                        All rights reserved
+                    </p>
                 </div>
             </div>
-        </footer>
-        <!-- ##### Footer Area End ##### -->
+        </div>
+    </div>
+</footer>
+<!-- ##### Footer Area End ##### -->
 
         <!-- Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

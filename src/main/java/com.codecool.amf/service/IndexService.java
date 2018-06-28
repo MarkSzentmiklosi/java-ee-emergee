@@ -9,6 +9,10 @@ import javax.servlet.http.HttpSession;
 public class IndexService {
 
     public String handleIndexGet(HttpSession session) {
+        if (session.getAttribute("partnerId") != null) {
+            return "partner_index";
+        }
+
         if (session.getAttribute("user") == null) {
             return "login";
         } else {
