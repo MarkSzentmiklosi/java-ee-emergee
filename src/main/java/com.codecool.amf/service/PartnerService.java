@@ -39,7 +39,7 @@ public class PartnerService {
         }
         long partnerId = (Long) session.getAttribute("partnerId");
         List<HelpRequest> requests = helpRequestRepository.findByPartnerId(partnerId);
-
+        session.removeAttribute("user"); // 100% hack proof
         model.addAttribute("requests", requests);
         return "partner_index";
     }
