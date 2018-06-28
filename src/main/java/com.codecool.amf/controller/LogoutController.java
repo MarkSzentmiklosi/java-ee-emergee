@@ -11,6 +11,12 @@ public class LogoutController {
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     protected String logout(HttpSession session) {
+
+        if (session.getAttribute("partnerId") != null) {
+            session.invalidate();
+            return "redirect:/partner-login";
+        }
+
         session.invalidate();
         return "redirect:/";
     }

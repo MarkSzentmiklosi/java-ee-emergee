@@ -1,14 +1,23 @@
-function disableButton() {
-    $pressedButton = $(this);
-    $pressedButton.prop('disabled',true);
+function disableButton($pressedButton) {
+    $pressedButton.css("pointer-events", "none");
     setTimeout(function () {
-        $pressedButton.prop('disabled',false);
-    }, 10000);
+        $pressedButton.css("pointer-events", "auto");
+    }, 20000);
 }
 
 
 function main() {
-$(".servicesHref").click(disableButton);
+    $('.servicesHref').on('touchend click', function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+        if (touchmoved != true) {
+            disableButton($(this));
+        }
+    }).on('touchmove', function () {
+        touchmoved = true;
+    }).on('touchstart', function () {
+        touchmoved = false;
+    });
 }
 
 main();

@@ -25,7 +25,8 @@ public class PartnerNotificationService {
     }
 
     private String buildJson(HelpRequest helpRequest) {
-        String jsonString = new JSONObject().put("partner_id", helpRequest.getPartner().getId())
+        String jsonString = new JSONObject()
+                .put("partner_id", helpRequest.getPartner().getId())
                 .put("request_location", helpRequest.getLocationLabel())
                 .put("user_name", helpRequest.getUser().getName())
                 .put("status", "ok")
