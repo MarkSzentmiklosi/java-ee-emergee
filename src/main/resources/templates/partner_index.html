@@ -23,7 +23,7 @@
     <script src="/js/partner.js" rel="script" defer></script>
     <script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" defer></script>
-    <script src="/js/partnerMap.js" rel="script" defer></script>
+    <script src="/js/partnerMap.js" rel="script"></script>
 
     <!-- Emergee own JS files -->
     <script src="/js/geocoding.js" rel="script" defer></script>
@@ -85,7 +85,7 @@
             <!--</tr>-->
             <tr th:each="data, iterstat: ${requests}">
                 <div class="single-products-catagory clearfix ">
-                    <a class="partner-page" href="#">
+                    <a data-toggle="modal" data-target="#myModal" class="partner-page" href="#">
                         <div class="img-container">
                             <img src="/img/simple.png" alt="">
                         </div>

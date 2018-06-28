@@ -5,20 +5,10 @@ function initMap() {
     });
     var geocoder = new google.maps.Geocoder();
 
-    document.getElementById('launchMap').addEventListener('click', function () {
-        geocodeAddress(geocoder, map);
-        $('#modal').modal({
-            backdrop: 'static',
-            keyboard: false
-        }).on('shown.bs.modal', function () {
-            google.maps.event.trigger(map, 'resize');
-            // map.setCenter(center);
-        });
-    });
+    addEventListeners(geocoder, map);
 }
 
-function geocodeAddress(geocoder, resultsMap) {
-    var address = document.getElementById('address').innerText;
+function geocodeAddress(geocoder, resultsMap, address) {
     geocoder.geocode({'address': address}, function (results, status) {
         if (status === 'OK') {
             resultsMap.setCenter(results[0].geometry.location);
@@ -29,5 +19,23 @@ function geocodeAddress(geocoder, resultsMap) {
         } else {
             alert('Geocode was not successful for the following reason: ' + status);
         }
+    });
+}
+
+function addEventListeners(geocoder, map) {
+    let userRequests = document.getElementsByClassName("partner-page");
+    for (var i = 0; i < userRequests.length; i++) {
+        let address = document.getElementById("td" + i).innerText;
+        userRequests.item(i).addEventListener('click', showMap(geocoder, map, address))
+    }
+}
+
+function showMap(geocoder, map, address) {
+    geocodeAddress(geocoder, map, address);
+    $('#modal').modal({
+        backdrop: 'static',
+        keyboard: false
+    }).on('shown.bs.modal', function () {
+        google.maps.event.trigger(map, 'resize');
     });
 }
