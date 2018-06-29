@@ -14,7 +14,7 @@ public class LogoutController {
 
         if (session.getAttribute("partnerId") != null) {
             session.invalidate();
-            return "redirect:/partner-login";
+            return "redirect:/";
         }
 
         session.invalidate();
