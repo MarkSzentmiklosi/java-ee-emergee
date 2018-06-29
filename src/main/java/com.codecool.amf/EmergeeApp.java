@@ -31,19 +31,19 @@ public class EmergeeApp {
     public CommandLineRunner init() {
         return (String... args) -> {
             Address address1 = new Address("Hungary", "Budapest", "1125", "Fogaskereku utca", "5");
-            Address address2 = new Address("USA", "Los Angeles", "CA 90021", "Sacramento St", "5");
+            Address address2 = new Address("USA", "Los Angeles", "CA 90021", "Sacramento St", "123");
 
             addressService.saveAddress(address1);
             addressService.saveAddress(address2);
 
-            partnerService.savePartner(new Partner("Orszagos Mentoszolgalat", "bollaferenc@gmail.com", ServiceType.AMBULANCE));
-            partnerService.savePartner(new Partner("Budapesti Rendor-fokapitanysag", "bollaferenc@gmail.com", ServiceType.POLICE));
-            partnerService.savePartner(new Partner("XIII. keruleti Tuzoltosagi Parancsnoksag", "bollaferenc@gmail.com", ServiceType.FIRE));
-            partnerService.savePartner(new Partner("Magyarorszagi Automento Szolgalat", "bollaferenc@gmail.com", ServiceType.CAR_REPAIR));
+            String password = "$2a$12$Stq5xqnL22Ngql7rXeqdLuWE9DjVG9L4VplKObiAKU9h/SI3BJ4Zi"; // password is: hello
 
-            String password = "$2a$12$Stq5xqnL22Ngql7rXeqdLuWE9DjVG9L4VplKObiAKU9h/SI3BJ4Zi";
+            partnerService.savePartner(new Partner("Orszagos Mentoszolgalat", "ambulance@amf.com", ServiceType.AMBULANCE, password));
+            partnerService.savePartner(new Partner("Budapesti Rendor-fokapitanysag", "police@amf.com", ServiceType.POLICE, password));
+            partnerService.savePartner(new Partner("XIII. keruleti Tuzoltosagi Parancsnoksag", "fire@amf.com", ServiceType.FIRE, password));
+            partnerService.savePartner(new Partner("Magyarorszagi Automento Szolgalat", "car@amf.com", ServiceType.CAR_REPAIR, password));
 
-            userService.saveUser(new User("Zamboki Panna", "pannaz@amf.com", "06301985667", "CE9352D", address1, password));
+            userService.saveUser(new User("Robot Otto", "robot@amf.com", "06301985667", "CE9352D", address1, password));
             userService.saveUser(new User("Tester Odon", "todon@amf.com", "06301985998", "FA9392C", address2, password));
         };
     }

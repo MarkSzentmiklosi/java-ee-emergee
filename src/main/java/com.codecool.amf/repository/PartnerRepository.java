@@ -7,4 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface PartnerRepository extends JpaRepository<Partner, Long> {
 
     Partner findByService(ServiceType serviceType);
+
+    Partner findByEmail(String email);
+
+    Partner findById(long id);
 }

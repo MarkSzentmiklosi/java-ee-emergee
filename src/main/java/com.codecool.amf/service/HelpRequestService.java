@@ -27,10 +27,6 @@ public class HelpRequestService {
     private PartnerService partnerService;
 
 
-    public void saveHelpRequest(HelpRequest helpRequest) {
-        helpRequestRepository.save(helpRequest);
-    }
-
     public String handleHelpRequestPost(String json, HttpSession session) {
         JSONObject requestJSON = new JSONObject(json);
         JSONObject serviceJson = (JSONObject) requestJSON.get("service_type");
@@ -47,12 +43,13 @@ public class HelpRequestService {
 
         HelpRequest helpRequest = new HelpRequest(time, requestedPartner, location, userInDB, locationLabel);
 
-        saveHelpRequest(helpRequest);
+        helpRequestRepository.save(helpRequest);
+
 
         emailService.notifyPartner(requestedServiceType, helpRequest);
         emailService.sendConfirmationForUser(requestedServiceType, helpRequest);
 
-        return "{\"status\": \"OK\" }";
+        return "{\"requestId\": \"" + helpRequest.getId() + "\" }";
     }
 
 

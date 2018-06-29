@@ -10,7 +10,7 @@
 
     <title>AMF | Emergee| Home</title>
 
-    <link rel="icon" href="static/img/amf.png">
+    <link rel="icon" href="/img/amf.png">
 
     <!-- Emergee own JS files for UI -->
     <script src="/js/ui/jquery-3.3.1.min.js" rel="script" defer language="JavaScript"
@@ -38,7 +38,7 @@
     <div class="mobile-nav">
         <!-- Navbar Brand -->
         <div class="amado-navbar-brand">
-            <a href="#"><img src="static/img/amf.png" alt=""></a>
+            <a href="#"><img src="/img/amf.png" alt=""></a>
         </div>
         <!-- Navbar Toggler -->
         <div class="amado-navbar-toggler">
@@ -56,7 +56,7 @@
         </div>
         <!-- Logo -->
         <div class="logo">
-            <a href="#"><img src="static/img/amf.png" alt=""></a>
+            <a href="#"><img src="/img/amf.png" alt=""></a>
         </div>
         <!-- Amado Nav -->
         <nav class="amado-nav">
@@ -86,11 +86,11 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <input type="text" class="form-control" id="name" name="name"
-                                           th:value="${session.user.getName()}" placeholder="Name">
+                                           th:value="${user.getName()}" placeholder="Name">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <span class="form-control" id="email"
-                                          th:text="${session.user.getEmail()}"></span>
+                                          th:text="${user.getEmail()}"></span>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <input type="text" class="form-control" id="idCard"
@@ -139,7 +139,7 @@
                 <div class="single_widget_area">
                     <!-- Logo -->
                     <div class="footer-logo footer-logo-img mr-50">
-                        <a href="#"><img src="static/img/amf-white.png" alt=""></a>
+                        <a href="#"><img src="/img/amf-white.png" alt=""></a>
                     </div>
                     <!-- Copywrite Text -->
                     <p class="copywrite">

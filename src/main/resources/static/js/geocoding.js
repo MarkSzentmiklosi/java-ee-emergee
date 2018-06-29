@@ -1,7 +1,21 @@
 var service;
 var touchmoved;
+var stompClient = null;
+var loading = $.loading();
+loading.ajax(true);
 
-$('.servicesHref').on('click touchend', function () {
+$(document).on({
+    ajaxStart: function () {
+        loading.open();
+    },
+    ajaxStop: function () {
+        loading.close();
+    }
+});
+
+$('.servicesHref').on('touchend click', function (event) {
+    event.stopPropagation();
+    event.preventDefault();
     if (touchmoved != true) {
         service = $(this).data("service");
         getLocation();
@@ -46,8 +60,17 @@ function handleJSON(json) {
             data: JSON.stringify(data),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
-            success: function () {
+            success: function (response) {
+                var socket = new SockJS('/emergee');
+                stompClient = Stomp.over(socket);
+                stompClient.connect({}, function (frame) {
+                    console.log('Connected: ' + frame);
+                    stompClient.send("/notifyPartner", {}, response["requestId"]);
+                });
+
+
                 alert("We notified the suitable partner.")
+
             }
         });
 

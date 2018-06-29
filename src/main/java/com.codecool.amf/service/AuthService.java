@@ -2,6 +2,7 @@ package com.codecool.amf.service;
 
 import com.codecool.amf.GoogleConfig.IdTokenVerifierAndParser;
 import com.codecool.amf.model.Address;
+import com.codecool.amf.model.Partner;
 import com.codecool.amf.model.User;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,46 +28,43 @@ public class AuthService {
     @Autowired
     AddressService addressService;
 
-    public String handleRedirectGoogleUserPost(HttpSession session, String idToken) {
+    @Autowired
+    PartnerService partnerService;
+
+    public String handleRedirectGoogleUserPost(String idToken, Model model, HttpSession session) {
         try {
             GoogleIdToken.Payload payLoad = idTokenVerifierAndParser.getPayload(idToken);
+            String email = payLoad.getEmail();
+            String name = (String) payLoad.get("name");
+            Optional<User> user = Optional.ofNullable(userService.getUserByEmail(email));
 
-            if (isUserExist(session, payLoad)) {
-                return "redirect:/";
-            } else {
-                return signUpGoogleUser(session, payLoad);
+
+            if (!user.isPresent()) {
+                return signUpGoogleUser(email, name, model, session);
             }
 
+            if (user.isPresent() && user.get().getAddress() == null) {
+                model.addAttribute("user", user.get());
+                session.setAttribute("user", user.get());
+                return "update-profile";
+            }
+            session.setAttribute("user", user.get());
+            return "redirect:/";
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
-        }
-    }
-
-    private boolean isUserExist(HttpSession session, GoogleIdToken.Payload payLoad) {
-
-        String email = payLoad.getEmail();
-        Optional<User> loginUser = Optional.ofNullable(userService.getUserByEmail(email));
-
-        if (loginUser.isPresent()) {
-            session.setAttribute("user", loginUser.get());
-            return true;
         }
 
-        return false;
+        return null;
     }
 
-    private String signUpGoogleUser(HttpSession session, GoogleIdToken.Payload payLoad) {
-
-        String name = (String) payLoad.get("name");
-        String email = payLoad.getEmail();
-
+    private String signUpGoogleUser(String email, String name, Model model, HttpSession session) {
         User user = new User();
         user.setName(name);
         user.setEmail(email);
         userService.saveUser(user);
 
         session.setAttribute("user", user);
+        model.addAttribute("user", user);
 
         return "update-profile";
     }
@@ -93,7 +91,7 @@ public class AuthService {
         String response = "invalid";
 
         User user = userService.getUserByEmail(email);
-        if (user != null) {
+        if (user != null && user.getAddress() != null) {
             String savedPassword = user.getPasswordHash();
             if (isPasswordMatch(password, savedPassword)) {
                 session.setAttribute("user", user);
@@ -109,9 +107,13 @@ public class AuthService {
         return passwordService.checkPassword(inputPassword, userPassword);
     }
 
-    public String handleRegistrationPost(HttpSession session, String email, String password) {
+    public String handleRegistrationPost(HttpSession session, String email, String password, Model model) {
         User newUser = new User(email, passwordService.hashPassword(password));
         session.setAttribute("user", newUser);
+        model.addAttribute("user", newUser);
+
+
+        userService.saveUser(newUser);
 
         return "update-profile";
     }
@@ -140,5 +142,20 @@ public class AuthService {
         session.setAttribute("user", user);
 
         return "redirect:/";
+    }
+
+    public String handleLoginPost(String email, HttpSession session) {
+        session.setAttribute("user", userService.getUserByEmail(email));
+        return "redirect:/";
+    }
+
+    public String handlePartnerLoginPost(String email, String password, HttpSession session) {
+        Partner partner = partnerService.selectPartnerByEmail(email);
+
+        if (passwordService.checkPassword(password, partner.getPassword())) {
+            session.setAttribute("partnerId", partner.getId());
+            return "redirect:/partner";
+        }
+        return "redirect:/partner-login";
     }
 }

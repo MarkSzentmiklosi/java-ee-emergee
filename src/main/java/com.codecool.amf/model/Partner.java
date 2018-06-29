@@ -10,11 +10,13 @@ public class Partner {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     private String name;
 
     private String email;
+
+    private String password;
 
     @Enumerated
     private ServiceType service;
@@ -32,11 +34,24 @@ public class Partner {
         this.service = service;
     }
 
+    public Partner(String name, String email, ServiceType service, String password) {
+        this(name, email, service);
+        this.password = password;
+    }
+
     public String getName() {
         return name;
     }
 
     public String getEmail() {
         return email;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }
