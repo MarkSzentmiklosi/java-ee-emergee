@@ -40,7 +40,6 @@ public class PartnerService {
         long partnerId = (Long) session.getAttribute("partnerId");
         Partner partner = partnerRepository.findById(partnerId);
         List<HelpRequest> requests = helpRequestRepository.findByPartnerId(partnerId);
-        session.removeAttribute("user");
         model.addAttribute("partner", partner);
         model.addAttribute("requests", requests);
         return "partner_index";
