@@ -13,7 +13,6 @@ public class HelpRequest {
 
     private boolean active = true;
 
-    @Transient
     private String creationDate;
 
     @Column(name = "time_stamp")

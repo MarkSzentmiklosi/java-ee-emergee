@@ -50,7 +50,9 @@ a {
   outline: 0 solid transparent;
   color: #131212;
   font-weight: 400;
-  font-size: 12px; }
+    font-size: 12px;
+    height: auto;
+}
   a:hover, a:focus {
     -webkit-transition: all 500ms ease 0s;
     transition: all 500ms ease 0s;
@@ -929,7 +931,8 @@ img {
       margin-bottom: 5px;
       -webkit-transition-duration: 250ms;
       transition-duration: 250ms; }
-    .single-products-catagory .hover-content h4 {
+
+.single-products-catagory .hover-content h4, .single-products-catagory .hover-content h6 {
       margin-bottom: 0;
       -webkit-transition-duration: 250ms;
       transition-duration: 250ms; }
@@ -937,8 +940,11 @@ img {
     opacity: 1;
     visibility: visible; }
   .single-products-catagory:hover .hover-content p,
-  .single-products-catagory:hover .hover-content h4, .single-products-catagory:focus .hover-content p,
-  .single-products-catagory:focus .hover-content h4 {
+  .single-products-catagory:hover .hover-content h4,
+  .single-products-catagory:hover .hover-content h6,
+  .single-products-catagory:focus .hover-content p,
+  .single-products-catagory:focus .hover-content h4,
+  .single-products-catagory:focus .hover-content h6 {
     color: #fff; }
 
 /* :: 7.0 Popular Products Area CSS */

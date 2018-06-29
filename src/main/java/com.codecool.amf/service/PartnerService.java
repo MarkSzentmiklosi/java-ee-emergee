@@ -38,8 +38,9 @@ public class PartnerService {
             return "redirect:/partner-login";
         }
         long partnerId = (Long) session.getAttribute("partnerId");
+        Partner partner = partnerRepository.findById(partnerId);
         List<HelpRequest> requests = helpRequestRepository.findByPartnerId(partnerId);
-        session.removeAttribute("user"); // 100% hack proof
+        model.addAttribute("partner", partner);
         model.addAttribute("requests", requests);
         return "partner_index";
     }

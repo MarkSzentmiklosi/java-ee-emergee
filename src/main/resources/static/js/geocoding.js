@@ -1,7 +1,17 @@
 var service;
 var touchmoved;
 var stompClient = null;
+var loading = $.loading();
+loading.ajax(true);
 
+$(document).on({
+    ajaxStart: function () {
+        loading.open();
+    },
+    ajaxStop: function () {
+        loading.close();
+    }
+});
 
 $('.servicesHref').on('touchend click', function (event) {
     event.stopPropagation();

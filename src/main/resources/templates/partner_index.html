@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="">
@@ -23,6 +23,7 @@
     <script src="/js/partner.js" rel="script" defer></script>
     <script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" defer></script>
+    <script src="/js/partnerMap.js" rel="script"></script>
 
     <!-- Emergee own JS files -->
     <script src="/js/geocoding.js" rel="script" defer></script>
@@ -30,6 +31,8 @@
     <!-- Emergee own CSS files -->
     <link rel="stylesheet" type="text/css" href="/css/core-style.css"/>
     <link rel="stylesheet" type="text/css" href="/css/index-style.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+
 
 </head>
 <body>
@@ -64,6 +67,7 @@
         <!-- Amado Nav -->
         <nav class="amado-nav">
             <ul>
+                <h4 th:text="${partner.name}"></h4>
                 <li class="active"><a href="/partner">Home</a></li>
             </ul>
         </nav>
@@ -76,9 +80,27 @@
 
     <!-- Product Catagories Area Start -->
     <div class="products-catagories-area clearfix">
+        <h3>REQUESTS</h3>
         <div class="amado-pro-catagory clearfix">
+            <tr th:each="data, iterstat: ${requests}">
+                <div class="single-products-catagory clearfix ">
+                    <a data-toggle="modal" data-target="#myModal" class="partner-page" href="#">
+                        <div class="img-container">
+                            <img src="/img/simple.png" alt="">
+                        </div>
+                        <!-- Hover Content -->
+                        <div class="hover-content">
+                            <div class="line"></div>
+                            <h4 th:text="${data.locationLabel}" th:id="|td${iterstat.index}|">Location</h4>
+                            <h6 th:text="${data.creationDate}">Date</h6>
+                            <h6 th:text="${data.user.name}">User</h6>
+                            <h6 th:text="${data.user.phoneNumber}">User number</h6>
+                        </div>
+                    </a>
+                </div>
+            </tr>
             <div class="requests">
-                
+
             </div>
         </div>
     </div>
@@ -108,7 +130,36 @@
 </footer>
 <!-- ##### Footer Area End ##### -->
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Location</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 modal_body_map">
+                        <div class="location-map" id="location-map" align="center">
+                            <div style="width: 730px; height: 400px;" id="map_canvas"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiU243_BtwUd2m6j7I1FSHZwf4rhyAhY4&callback=initMap">
+</script>
 <script src="https://apis.google.com/js/platform.js?onload=onLoad"></script>
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</div>
+</div>
 </body>
 </html>
